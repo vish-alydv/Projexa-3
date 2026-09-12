@@ -7,13 +7,13 @@ import {
   ArrowLeft, 
   BookOpen, 
   GraduationCap, 
-  PlayCircle,
-  Sparkles
+  PlayCircle, 
+  Sparkles 
 } from 'lucide-react';
 import GlassCard from '../common/GlassCard';
 import { CLASS_5_SUBJECTS } from '../../data/class5Data';
 import SubjectChapterModal from '../modals/SubjectChapterModal';
-import PracticeModal from '../modals/PracticeModal';
+import SubjectPracticeModal from '../modals/SubjectPracticeModal';
 
 export default function CoursesPage({ onBackToHome, onOpenAuth }) {
   const [selectedSubject, setSelectedSubject] = useState(null);
@@ -212,13 +212,14 @@ export default function CoursesPage({ onBackToHome, onOpenAuth }) {
         subject={selectedSubject}
         onClose={() => setSelectedSubject(null)}
         onStartLesson={(chap) => {
+          const s = selectedSubject;
           setSelectedSubject(null);
-          setPracticeSubject(selectedSubject);
+          setPracticeSubject(s);
         }}
       />
 
-      {/* Interactive Practice Questions Modal */}
-      <PracticeModal
+      {/* Chapter Practice Sessions Modal (Same type layout as View Syllabus) */}
+      <SubjectPracticeModal
         subject={practiceSubject}
         onClose={() => setPracticeSubject(null)}
       />
