@@ -5,25 +5,23 @@ import {
   BookOpenCheck, 
   Globe2, 
   ArrowLeft, 
-  ArrowRight, 
-  Search, 
   BookOpen, 
   Layers, 
   CheckCircle2, 
   Sparkles, 
   GraduationCap, 
-  Award,
-  Filter,
-  Flame,
-  Clock
+  PlayCircle,
+  Clock,
+  Target
 } from 'lucide-react';
 import GlassCard from '../common/GlassCard';
 import { CLASS_5_SUBJECTS } from '../../data/class5Data';
 import SubjectChapterModal from '../modals/SubjectChapterModal';
+import PracticeModal from '../modals/PracticeModal';
 
 export default function CoursesPage({ onBackToHome, onOpenAuth }) {
   const [selectedSubject, setSelectedSubject] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [practiceSubject, setPracticeSubject] = useState(null);
   const [activeFilter, setActiveFilter] = useState('all');
 
   const iconMap = {
@@ -34,15 +32,10 @@ export default function CoursesPage({ onBackToHome, onOpenAuth }) {
   };
 
   const filteredSubjects = CLASS_5_SUBJECTS.filter((subj) => {
-    const matchesSearch = 
-      subj.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      subj.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      subj.tagline.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    if (activeFilter === 'all') return matchesSearch;
-    if (activeFilter === 'in_progress') return matchesSearch && subj.progress < 100;
-    if (activeFilter === 'high_progress') return matchesSearch && subj.progress >= 60;
-    return matchesSearch;
+    if (activeFilter === 'all') return true;
+    if (activeFilter === 'in_progress') return subj.progress < 100;
+    if (activeFilter === 'high_progress') return subj.progress >= 60;
+    return true;
   });
 
   return (
@@ -72,7 +65,7 @@ export default function CoursesPage({ onBackToHome, onOpenAuth }) {
         </div>
 
         {/* Page Hero Header with Teal Educational Design */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#CCFBF1] border border-teal-200/90 text-xs font-bold text-[#0D9488] uppercase tracking-wider mb-4 shadow-sm">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Grade 5 Foundation Courses</span>
@@ -90,51 +83,20 @@ export default function CoursesPage({ onBackToHome, onOpenAuth }) {
             Built specifically for 5th Grade learners. Understand core principles through interactive chapter breakdowns, visual explanations, and self-paced worksheets.
           </p>
 
-          {/* Quick Metrics Strip */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs font-semibold text-slate-700">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/70 border border-teal-100">
-              <span className="w-2 h-2 rounded-full bg-[#0D9488]" />
-              <span>4 Comprehensive Subjects</span>
-            </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/70 border border-teal-100">
-              <span className="w-2 h-2 rounded-full bg-[#0D9488]" />
-              <span>178 Interactive Lessons</span>
-            </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/70 border border-teal-100">
-              <span className="w-2 h-2 rounded-full bg-[#0D9488]" />
-              <span>46 Practical Worksheets</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Search and Filters Bar */}
-        <div className="mb-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-2 rounded-2xl bg-white/80 backdrop-blur-xl border border-teal-100 shadow-sm">
-          {/* Search Input */}
-          <div className="relative w-full sm:w-80">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search Class 5 subjects, chapters..."
-              className="w-full pl-10 pr-4 py-2 text-xs sm:text-sm rounded-xl bg-slate-50/70 border border-slate-200/60 focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] transition-all"
-            />
-          </div>
-
-          {/* Filter Pills */}
-          <div className="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
+          {/* Quick Filter Pills (Search Bar removed as requested) */}
+          <div className="mt-8 flex items-center justify-center gap-2">
             {[
-              { id: 'all', label: 'All Subjects' },
-              { id: 'in_progress', label: 'Active' },
-              { id: 'high_progress', label: 'Over 60% Done' },
+              { id: 'all', label: 'All Subjects (4)' },
+              { id: 'in_progress', label: 'Active Learning' },
+              { id: 'high_progress', label: 'Over 60% Completed' },
             ].map((filter) => (
               <button
                 key={filter.id}
                 onClick={() => setActiveFilter(filter.id)}
-                className={`px-3.5 py-1.5 text-xs font-semibold rounded-xl whitespace-nowrap transition-all ${
+                className={`px-4 py-2 text-xs font-semibold rounded-xl transition-all ${
                   activeFilter === filter.id
                     ? 'bg-[#0D9488] text-white shadow-sm'
-                    : 'bg-white hover:bg-teal-50 text-slate-600 border border-slate-200/60'
+                    : 'bg-white/80 hover:bg-teal-50 text-slate-600 border border-teal-100 shadow-xs'
                 }`}
               >
                 {filter.label}
@@ -228,7 +190,7 @@ export default function CoursesPage({ onBackToHome, onOpenAuth }) {
                   </div>
                 </div>
 
-                {/* Bottom Row: Stats & Action Button */}
+                {/* Bottom Row: Stats & TWO Separate Buttons */}
                 <div className="pt-5 border-t border-slate-100">
                   <div className="grid grid-cols-3 gap-2 text-center text-xs text-slate-600 mb-5">
                     <div className="p-2 rounded-xl bg-slate-50 border border-slate-100">
@@ -245,14 +207,26 @@ export default function CoursesPage({ onBackToHome, onOpenAuth }) {
                     </div>
                   </div>
 
-                  {/* Explore Chapters Button */}
-                  <button
-                    onClick={() => setSelectedSubject(subject)}
-                    className="w-full group/btn flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[#0D9488] hover:bg-teal-700 text-white text-xs sm:text-sm font-semibold shadow-md shadow-teal-700/20 hover:shadow-lg transition-all duration-150 active:scale-[0.99]"
-                  >
-                    <span>Explore Chapters & Syllabus</span>
-                    <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                  </button>
+                  {/* Two Separate Buttons: Start Practice & View Syllabus */}
+                  <div className="flex flex-col sm:flex-row items-center gap-3">
+                    {/* Button 1: Start Practice */}
+                    <button
+                      onClick={() => setPracticeSubject(subject)}
+                      className="w-full sm:flex-1 group/btn flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#0D9488] hover:bg-teal-700 text-white text-xs sm:text-sm font-semibold shadow-md shadow-teal-700/20 hover:shadow-lg transition-all duration-150 active:scale-[0.98]"
+                    >
+                      <PlayCircle className="w-4 h-4 text-white" />
+                      <span>Start Practice</span>
+                    </button>
+
+                    {/* Button 2: View Syllabus */}
+                    <button
+                      onClick={() => setSelectedSubject(subject)}
+                      className="w-full sm:flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-white/90 hover:bg-white text-slate-700 hover:text-[#0D9488] border border-teal-200/90 hover:border-[#0D9488] text-xs sm:text-sm font-semibold shadow-xs hover:shadow transition-all duration-150 active:scale-[0.98]"
+                    >
+                      <BookOpen className="w-4 h-4 text-[#0D9488]" />
+                      <span>View Syllabus</span>
+                    </button>
+                  </div>
                 </div>
               </GlassCard>
             );
@@ -273,20 +247,26 @@ export default function CoursesPage({ onBackToHome, onOpenAuth }) {
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white hover:bg-slate-50 border border-teal-200 text-[#0D9488] text-xs sm:text-sm font-bold shadow-sm transition-all"
             >
               <span>Return to Main Platform</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowLeft className="w-4 h-4" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* Chapter Inspector Modal */}
+      {/* Chapter & Syllabus Inspector Modal */}
       <SubjectChapterModal
         subject={selectedSubject}
         onClose={() => setSelectedSubject(null)}
         onStartLesson={(chap) => {
           setSelectedSubject(null);
-          onOpenAuth('signup');
+          setPracticeSubject(selectedSubject);
         }}
+      />
+
+      {/* Interactive Practice Questions Modal */}
+      <PracticeModal
+        subject={practiceSubject}
+        onClose={() => setPracticeSubject(null)}
       />
     </div>
   );
