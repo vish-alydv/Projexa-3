@@ -6,13 +6,9 @@ import {
   Globe2, 
   ArrowLeft, 
   BookOpen, 
-  Layers, 
-  CheckCircle2, 
-  Sparkles, 
   GraduationCap, 
   PlayCircle,
-  Clock,
-  Target
+  Sparkles
 } from 'lucide-react';
 import GlassCard from '../common/GlassCard';
 import { CLASS_5_SUBJECTS } from '../../data/class5Data';
@@ -22,7 +18,6 @@ import PracticeModal from '../modals/PracticeModal';
 export default function CoursesPage({ onBackToHome, onOpenAuth }) {
   const [selectedSubject, setSelectedSubject] = useState(null);
   const [practiceSubject, setPracticeSubject] = useState(null);
-  const [activeFilter, setActiveFilter] = useState('all');
 
   const iconMap = {
     Calculator: Calculator,
@@ -30,13 +25,6 @@ export default function CoursesPage({ onBackToHome, onOpenAuth }) {
     BookOpenCheck: BookOpenCheck,
     Globe2: Globe2,
   };
-
-  const filteredSubjects = CLASS_5_SUBJECTS.filter((subj) => {
-    if (activeFilter === 'all') return true;
-    if (activeFilter === 'in_progress') return subj.progress < 100;
-    if (activeFilter === 'high_progress') return subj.progress >= 60;
-    return true;
-  });
 
   return (
     <div className="pt-28 pb-24 relative overflow-hidden bg-radial-teal min-h-screen">
@@ -65,7 +53,7 @@ export default function CoursesPage({ onBackToHome, onOpenAuth }) {
         </div>
 
         {/* Page Hero Header with Teal Educational Design */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#CCFBF1] border border-teal-200/90 text-xs font-bold text-[#0D9488] uppercase tracking-wider mb-4 shadow-sm">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Grade 5 Foundation Courses</span>
@@ -82,32 +70,11 @@ export default function CoursesPage({ onBackToHome, onOpenAuth }) {
           <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
             Built specifically for 5th Grade learners. Understand core principles through interactive chapter breakdowns, visual explanations, and self-paced worksheets.
           </p>
-
-          {/* Quick Filter Pills (Search Bar removed as requested) */}
-          <div className="mt-8 flex items-center justify-center gap-2">
-            {[
-              { id: 'all', label: 'All Subjects (4)' },
-              { id: 'in_progress', label: 'Active Learning' },
-              { id: 'high_progress', label: 'Over 60% Completed' },
-            ].map((filter) => (
-              <button
-                key={filter.id}
-                onClick={() => setActiveFilter(filter.id)}
-                className={`px-4 py-2 text-xs font-semibold rounded-xl transition-all ${
-                  activeFilter === filter.id
-                    ? 'bg-[#0D9488] text-white shadow-sm'
-                    : 'bg-white/80 hover:bg-teal-50 text-slate-600 border border-teal-100 shadow-xs'
-                }`}
-              >
-                {filter.label}
-              </button>
-            ))}
-          </div>
         </div>
 
         {/* 4 Subjects Grid according to Class 5th */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {filteredSubjects.map((subject) => {
+          {CLASS_5_SUBJECTS.map((subject) => {
             const Icon = iconMap[subject.iconName] || BookOpen;
 
             return (
@@ -174,19 +141,6 @@ export default function CoursesPage({ onBackToHome, onOpenAuth }) {
                       <span>Last: {subject.lastAccessed}</span>
                       <span className="text-[#0D9488] font-medium">Synced</span>
                     </div>
-                  </div>
-
-                  {/* Key Skills Tags */}
-                  <div className="mb-6 space-y-1.5">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-1">
-                      Key Competencies Covered:
-                    </span>
-                    {subject.keySkills.slice(0, 3).map((skill, i) => (
-                      <div key={i} className="flex items-start gap-2 text-xs text-slate-700">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#0D9488] flex-shrink-0 mt-0.5" />
-                        <span>{skill}</span>
-                      </div>
-                    ))}
                   </div>
                 </div>
 
