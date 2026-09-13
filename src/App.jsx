@@ -11,19 +11,23 @@ import Footer from './components/layout/Footer';
 import AuthModal from './components/modals/AuthModal';
 import PathDetailModal from './components/modals/PathDetailModal';
 import CoursesPage from './components/courses/CoursesPage';
+import ProgressPage from './components/progress/ProgressPage';
+import AboutPage from './components/about/AboutPage';
+import DailyLifeQuizzesPage from './components/quizzes/DailyLifeQuizzesPage';
 
 export default function App() {
-  const [activePage, setActivePage] = useState('home'); // 'home' | 'courses'
+  const [activePage, setActivePage] = useState('home'); // 'home' | 'courses' | 'progress' | 'about' | 'daily-life'
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState('signup');
   const [selectedPath, setSelectedPath] = useState(null);
 
-  // Sync with browser hash if user opens directly with #courses
+  // Sync with browser hash if user opens or uses back/forward buttons
   useEffect(() => {
     const handleHashChange = () => {
-      if (window.location.hash === '#courses') {
-        setActivePage('courses');
-      } else if (window.location.hash === '#home' || window.location.hash === '') {
+      const hash = window.location.hash.replace('#', '');
+      if (['courses', 'progress', 'about', 'daily-life'].includes(hash)) {
+        setActivePage(hash);
+      } else {
         setActivePage('home');
       }
     };
@@ -48,7 +52,7 @@ export default function App() {
 
   const handleNavigate = (page) => {
     setActivePage(page);
-    window.location.hash = page === 'courses' ? '#courses' : '#home';
+    window.location.hash = page === 'home' ? '#home' : `#${page}`;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -66,6 +70,25 @@ export default function App() {
         {activePage === 'courses' ? (
           /* Dedicated Class 5th Courses Page */
           <CoursesPage
+            onBackToHome={() => handleNavigate('home')}
+            onOpenAuth={handleOpenAuth}
+          />
+        ) : activePage === 'progress' ? (
+          /* Dedicated Progress & Telemetry Page */
+          <ProgressPage
+            onBackToHome={() => handleNavigate('home')}
+            onNavigateCourses={() => handleNavigate('courses')}
+            onOpenAuth={handleOpenAuth}
+          />
+        ) : activePage === 'about' ? (
+          /* Dedicated About & Pedagogy Page */
+          <AboutPage
+            onBackToHome={() => handleNavigate('home')}
+            onOpenAuth={handleOpenAuth}
+          />
+        ) : activePage === 'daily-life' ? (
+          /* Dedicated Daily Life Scenario Quizzes Page */
+          <DailyLifeQuizzesPage
             onBackToHome={() => handleNavigate('home')}
             onOpenAuth={handleOpenAuth}
           />
@@ -103,6 +126,9 @@ export default function App() {
       <Footer
         onOpenAuth={handleOpenAuth}
         onNavigateCourses={() => handleNavigate('courses')}
+        onNavigateProgress={() => handleNavigate('progress')}
+        onNavigateAbout={() => handleNavigate('about')}
+        onNavigateDailyLife={() => handleNavigate('daily-life')}
       />
 
       {/* Interactive Modals */}
