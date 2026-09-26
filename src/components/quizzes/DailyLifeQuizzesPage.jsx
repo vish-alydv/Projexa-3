@@ -1,216 +1,259 @@
 import React, { useState } from 'react';
-import { 
-  ArrowLeft, 
-  Sparkles, 
-  ShoppingCart, 
-  Utensils, 
-  Navigation, 
-  MessageSquare, 
-  PlayCircle, 
-  Clock, 
-  Target, 
-  Lightbulb, 
-  CheckCircle2, 
-  Compass,
-  Smile,
-  Award
-} from 'lucide-react';
-import GlassCard from '../common/GlassCard';
-import { DAILY_LIFE_QUIZZES } from '../../data/dailyLifeQuizzesData';
-import DailyLifeQuizModal from './DailyLifeQuizModal';
+import { Clock, ArrowRight } from 'lucide-react';
+import supermarketCartImg from '../../assets/supermarket_cart.jpg';
+import kitchenScienceImg from '../../assets/kitchen_science.jpg';
+import roadSafetyImg from '../../assets/road_safety.jpg';
+import FullScreenDrillModal from '../practice/FullScreenDrillModal';
 
-export default function DailyLifeQuizzesPage({ onBackToHome, onOpenAuth }) {
-  const [selectedQuiz, setSelectedQuiz] = useState(null);
-  const [activeFilter, setActiveFilter] = useState('all');
+export default function DailyLifeQuizzesPage() {
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [activeQuizModal, setActiveQuizModal] = useState(null);
 
-  const iconMap = {
-    ShoppingCart: ShoppingCart,
-    Utensils: Utensils,
-    Navigation: Navigation,
-    MessageSquare: MessageSquare,
-  };
+  const categories = [
+    { id: 'all', label: 'All' },
+    { id: 'math', label: '🛒 Supermarket Math' },
+    { id: 'science', label: '🧪 Kitchen Science' },
+    { id: 'civics', label: '🚦 Road Safety' },
+  ];
 
-  const filteredQuizzes = DAILY_LIFE_QUIZZES.filter((q) => {
-    if (activeFilter === 'all') return true;
-    return q.subjectId === activeFilter;
-  });
+  const quizzes = [
+    {
+      id: 'supermarket',
+      title: 'Supermarket Checkout',
+      categoryTag: 'Math',
+      category: 'math',
+      description: 'Calculate small discounts and count the change at the cash counter.',
+      duration: '3 mins',
+      questionsCount: '5 Qs',
+      image: supermarketCartImg,
+      questions: [
+        {
+          id: 1,
+          questionText: "Riya buys a notebook for ₹35 and a pen for ₹15. She gives a ₹100 note. How much change does she get?",
+          options: ["₹40", "₹50", "₹60", "₹30"],
+          correctOptionIndex: 1,
+          explanation: "Total cost = 35 + 15 = ₹50. Change = 100 - 50 = ₹50."
+        },
+        {
+          id: 2,
+          questionText: "If an apple costs ₹12 each, how much will 5 apples cost?",
+          options: ["₹50", "₹55", "₹60", "₹65"],
+          correctOptionIndex: 2,
+          explanation: "12 × 5 = ₹60."
+        },
+        {
+          id: 3,
+          questionText: "A ₹20 chocolate has a ₹5 discount. How much do you pay?",
+          options: ["₹15", "₹25", "₹10", "₹18"],
+          correctOptionIndex: 0,
+          explanation: "20 - 5 = ₹15."
+        },
+        {
+          id: 4,
+          questionText: "You need 2 litres of milk. Each pouch is 500ml. How many pouches should you pick?",
+          options: ["2 pouches", "3 pouches", "4 pouches", "5 pouches"],
+          correctOptionIndex: 2,
+          explanation: "2000ml / 500ml = 4 pouches."
+        },
+        {
+          id: 5,
+          questionText: "A packet of biscuits weighs 250g. How many packets equal 1 kilogram?",
+          options: ["2", "3", "4", "5"],
+          correctOptionIndex: 2,
+          explanation: "1kg = 1000g. 1000 / 250 = 4."
+        }
+      ]
+    },
+    {
+      id: 'kitchen',
+      title: 'Kitchen Science',
+      categoryTag: 'Science',
+      category: 'science',
+      description: 'Discover why milk boils over, how bread rises, and why ice floats.',
+      duration: '3 mins',
+      questionsCount: '5 Qs',
+      image: kitchenScienceImg,
+      questions: [
+        {
+          id: 1,
+          questionText: "Why does ice float on top of water in a glass?",
+          options: [
+            "Ice is lighter (less dense) than liquid water",
+            "Ice is heavier than water",
+            "Water pushes ice up with wind",
+            "Ice traps air pockets inside"
+          ],
+          correctOptionIndex: 0,
+          explanation: "When water freezes, it expands and becomes less dense than water!"
+        },
+        {
+          id: 2,
+          questionText: "Which component makes bread fluffy when yeast is added?",
+          options: ["Oxygen gas", "Carbon dioxide gas", "Nitrogen gas", "Steam"],
+          correctOptionIndex: 1,
+          explanation: "Yeast produces tiny bubbles of carbon dioxide that expand when baked."
+        },
+        {
+          id: 3,
+          questionText: "Why does milk foam and spill over when boiled fast?",
+          options: [
+            "Proteins and fats trap steam inside a layer",
+            "Milk has acid that reacts with heat",
+            "Water disappears completely",
+            "Milk turns into gas immediately"
+          ],
+          correctOptionIndex: 0,
+          explanation: "Milk protein forms a skin on top which traps steam bubbles underneath."
+        },
+        {
+          id: 4,
+          questionText: "What state of matter is steam rising from hot tea?",
+          options: ["Solid", "Liquid", "Gas", "Plasma"],
+          correctOptionIndex: 2,
+          explanation: "Water vapor rising from tea is in gaseous state."
+        },
+        {
+          id: 5,
+          questionText: "Why do we add salt to ice while making ice cream?",
+          options: [
+            "Salt lowers the freezing point of ice",
+            "Salt makes ice warmer",
+            "Salt makes ice melt instantly without cooling",
+            "Salt stops ice from dissolving"
+          ],
+          correctOptionIndex: 0,
+          explanation: "Salt lowers the freezing point, making the mixture super cold!"
+        }
+      ]
+    },
+    {
+      id: 'road-safety',
+      title: 'Road Safety',
+      categoryTag: 'Civics',
+      category: 'civics',
+      description: 'Recognize street signs, zebra crossings, and safe bicycle habits.',
+      duration: '3 mins',
+      questionsCount: '5 Qs',
+      image: roadSafetyImg,
+      questions: [
+        {
+          id: 1,
+          questionText: "What does a solid RED traffic light signal mean for vehicles?",
+          options: ["Get ready to go", "Stop completely", "Drive fast", "Turn left only"],
+          correctOptionIndex: 1,
+          explanation: "Red light strictly means STOP for all vehicles."
+        },
+        {
+          id: 2,
+          questionText: "Where is the safest place for pedestrians to cross a busy road?",
+          options: ["Between parked cars", "Zebra crossing or pedestrian bridge", "Near a sharp curve", "Any spot on the highway"],
+          correctOptionIndex: 1,
+          explanation: "Always use designated Zebra crossings or foot overbridges."
+        },
+        {
+          id: 3,
+          questionText: "What safety gear must every cyclist wear while riding?",
+          options: ["Helmet", "Sunglasses only", "Raincoat", "Cap"],
+          correctOptionIndex: 0,
+          explanation: "A proper bicycle helmet protects head from impacts."
+        },
+        {
+          id: 4,
+          questionText: "Before crossing the street, what should you do first?",
+          options: [
+            "Look right, left, and right again",
+            "Run across as fast as possible",
+            "Close eyes and walk",
+            "Use smartphone while walking"
+          ],
+          correctOptionIndex: 0,
+          explanation: "Stop at curb, look right, look left, look right again before crossing."
+        },
+        {
+          id: 5,
+          questionText: "What does an octagonal red traffic sign with text 'STOP' indicate?",
+          options: ["Mandatory stop", "Speed limit 50", "No parking", "Hospital zone"],
+          correctOptionIndex: 0,
+          explanation: "The red 8-sided sign mandates vehicles to come to a complete stop."
+        }
+      ]
+    }
+  ];
+
+  const filteredQuizzes = selectedCategory === 'all'
+    ? quizzes
+    : quizzes.filter(q => q.category === selectedCategory);
 
   return (
-    <div className="pt-28 pb-24 relative overflow-hidden bg-radial-teal min-h-screen">
-      {/* Background Soft Lighting - Teal ambience rgb(204, 251, 241) */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[650px] pointer-events-none -z-10">
-        <div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-[#CCFBF1]/80 rounded-full blur-[120px]" />
-        <div className="absolute top-28 right-1/4 w-[420px] h-[420px] bg-teal-200/40 rounded-full blur-[140px]" />
+    <div className="p-6 sm:p-8 max-w-6xl mx-auto flex flex-col gap-6">
+      {/* Page Header */}
+      <div>
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          Interactive Quizzes
+        </h1>
+        <p className="mt-1 text-xs sm:text-sm text-slate-500 font-medium">
+          Everyday real-world scenario quizzes to test your understanding.
+        </p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Navigation Breadcrumb Bar */}
-        <div className="flex items-center justify-between mb-8">
-          <button
-            onClick={onBackToHome}
-            className="group inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/80 hover:bg-white border border-teal-200/70 text-xs sm:text-sm font-semibold text-[#0D9488] shadow-sm hover:shadow transition-all duration-150"
+      {/* Quiz Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-1">
+        {quizzes.map((quiz) => (
+          <div
+            key={quiz.id}
+            className="bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between hover:border-indigo-200 hover:shadow-md transition-all"
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
-            <span>Back to Home</span>
-          </button>
+            <div>
+              {/* Card Image */}
+              <div className="relative h-40 w-full bg-slate-100 overflow-hidden">
+                <img
+                  src={quiz.image}
+                  alt={quiz.title}
+                  className="w-full h-full object-cover"
+                />
+                <span className="absolute top-2.5 right-2.5 px-2.5 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-slate-800 text-[11px] font-bold border border-slate-200 shadow-sm">
+                  {quiz.categoryTag}
+                </span>
+              </div>
 
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#CCFBF1] border border-teal-200 text-xs font-bold text-[#0D9488]">
-            <Compass className="w-3.5 h-3.5" />
-            <span>Real-World Learning Lab</span>
-          </div>
-        </div>
+              {/* Body */}
+              <div className="p-4">
+                <h3 className="text-base font-bold text-slate-900">
+                  {quiz.title}
+                </h3>
+                <p className="mt-1.5 text-xs text-slate-500 font-medium leading-relaxed">
+                  {quiz.description}
+                </p>
+              </div>
+            </div>
 
-        {/* Hero Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#CCFBF1] border border-teal-200/90 text-xs font-bold text-[#0D9488] uppercase tracking-wider mb-4 shadow-sm">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Beyond Classroom Textbooks</span>
-          </div>
+            {/* Footer */}
+            <div className="p-4 pt-0 flex items-center justify-between gap-2 border-t border-slate-100 mt-3">
+              <div className="flex items-center gap-1 text-xs text-slate-400 font-semibold">
+                <Clock className="w-3.5 h-3.5" />
+                <span>{quiz.duration} • {quiz.questionsCount}</span>
+              </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Daily Life{' '}
-            <span className="text-[#0D9488] relative">
-              Interactive Quizzes
-              <span className="absolute left-0 -bottom-1 w-full h-1 bg-[#0D9488]/30 rounded-full" />
-            </span>
-          </h1>
-
-          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-            See how Class 5th subjects apply to daily life! Practice supermarket billing math, kitchen physics, road safety signs, and everyday polite communication with scenario-based MCQs.
-          </p>
-
-          {/* Subject Filter Tabs */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-            {[
-              { id: 'all', label: 'All Life Quizzes' },
-              { id: 'maths', label: 'Supermarket & Money Math' },
-              { id: 'science', label: 'Kitchen Science' },
-              { id: 'sst', label: 'Road Safety & Maps' },
-              { id: 'english', label: 'Everyday English' },
-            ].map((tab) => (
               <button
-                key={tab.id}
-                onClick={() => setActiveFilter(tab.id)}
-                className={`px-4 py-2 text-xs font-semibold rounded-xl transition-all ${
-                  activeFilter === tab.id
-                    ? 'bg-[#0D9488] text-white shadow-sm'
-                    : 'bg-white/80 hover:bg-teal-50 text-slate-700 border border-teal-100 shadow-xs'
-                }`}
+                onClick={() => setActiveQuizModal(quiz)}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-sm active:scale-95 transition-all"
               >
-                {tab.label}
+                <span>Start Quiz</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </button>
-            ))}
+            </div>
           </div>
-        </div>
-
-        {/* Daily Life Quizzes Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          {filteredQuizzes.map((quiz) => {
-            const Icon = iconMap[quiz.iconName] || Sparkles;
-
-            return (
-              <GlassCard
-                key={quiz.id}
-                hoverEffect
-                padding="p-7 sm:p-8"
-                className="flex flex-col justify-between border-teal-100/90 group relative overflow-hidden"
-              >
-                {/* Soft ambient corner glow inside card */}
-                <div className="absolute -top-12 -right-12 w-36 h-36 bg-[#CCFBF1]/50 rounded-full blur-2xl pointer-events-none" />
-
-                <div>
-                  {/* Top Strip */}
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="flex items-center gap-3">
-                      <div className="w-14 h-14 rounded-2xl bg-[#CCFBF1] border border-teal-200 flex items-center justify-center text-[#0D9488] shadow-sm group-hover:scale-105 transition-transform duration-200">
-                        <Icon className="w-7 h-7" strokeWidth={2.2} />
-                      </div>
-                      <div>
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-[#0D9488]">
-                          {quiz.subjectName}
-                        </span>
-                        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 group-hover:text-[#0D9488] transition-colors">
-                          {quiz.title}
-                        </h2>
-                      </div>
-                    </div>
-
-                    <span className="hidden sm:inline-flex px-3 py-1 rounded-full text-xs font-bold bg-[#CCFBF1] text-[#0D9488] border border-teal-200">
-                      {quiz.badge}
-                    </span>
-                  </div>
-
-                  <div className="text-xs font-semibold text-teal-700 mb-2">
-                    {quiz.tagline}
-                  </div>
-
-                  {/* Real World Scenario Snippet */}
-                  <div className="p-3.5 rounded-2xl bg-[#CCFBF1]/30 border border-teal-100 mb-5 text-xs text-slate-700">
-                    <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#0D9488] mb-1">
-                      <Lightbulb className="w-3.5 h-3.5" />
-                      <span>Everyday Context:</span>
-                    </div>
-                    <p className="line-clamp-2 leading-relaxed">
-                      {quiz.realWorldScenario}
-                    </p>
-                  </div>
-
-                  {/* Life Skill Pill */}
-                  <div className="mb-6 flex items-center gap-2 text-xs text-slate-600">
-                    <Award className="w-4 h-4 text-[#0D9488]" />
-                    <span>Skill learned: <strong className="text-slate-800">{quiz.lifeSkill}</strong></span>
-                  </div>
-                </div>
-
-                {/* Bottom Row */}
-                <div className="pt-5 border-t border-slate-100 flex items-center justify-between">
-                  <div className="flex items-center gap-3 text-xs text-slate-500">
-                    <span>{quiz.questionsCount} Real Scenarios</span>
-                    <span>•</span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-3 h-3" />
-                      ~{quiz.estimatedMinutes} mins
-                    </span>
-                  </div>
-
-                  <button
-                    onClick={() => setSelectedQuiz(quiz)}
-                    className="inline-flex items-center gap-1.5 py-2.5 px-4 rounded-xl bg-[#0D9488] hover:bg-teal-700 text-white text-xs sm:text-sm font-semibold shadow-sm hover:shadow transition-all active:scale-[0.98]"
-                  >
-                    <PlayCircle className="w-4 h-4" />
-                    <span>Play Daily Life Quiz</span>
-                  </button>
-                </div>
-              </GlassCard>
-            );
-          })}
-        </div>
-
-        {/* Why Daily Life Learning Matters Banner */}
-        <div className="rounded-3xl bg-[#CCFBF1]/50 border border-teal-200/80 p-8 sm:p-10 text-center backdrop-blur-xl">
-          <div className="max-w-2xl mx-auto">
-            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">
-              Why Connect School Subjects to Daily Life?
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
-              When 5th grade students realize that fraction lessons help them split grocery items, and states of matter explain kitchen cooking, their learning shifts from boring memorization to everyday observation and life intelligence.
-            </p>
-            <button
-              onClick={onBackToHome}
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-teal-200 text-[#0D9488] text-xs sm:text-sm font-bold shadow-xs transition-all"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back to Home Platform</span>
-            </button>
-          </div>
-        </div>
+        ))}
       </div>
 
-      {/* Interactive Daily Life Quiz Player Modal */}
-      <DailyLifeQuizModal
-        quiz={selectedQuiz}
-        onClose={() => setSelectedQuiz(null)}
-      />
+      {/* Quiz Drill Modal */}
+      {activeQuizModal && (
+        <FullScreenDrillModal
+          drillTitle={activeQuizModal.title}
+          questions={activeQuizModal.questions}
+          onClose={() => setActiveQuizModal(null)}
+        />
+      )}
     </div>
   );
 }

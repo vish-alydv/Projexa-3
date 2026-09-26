@@ -69,28 +69,12 @@ export const CLASS_5_SUBJECTS = [
         duration: "2h 40m",
         status: "pending",
         topics: ["Perimeter of Regular Shapes", "Area of Squares and Rectangles", "Introduction to Cubic Volume"]
-      },
-      {
-        id: 7,
-        title: "Data Handling & Bar Graphs",
-        lessons: 5,
-        duration: "1h 50m",
-        status: "pending",
-        topics: ["Interpreting Bar Graphs", "Pictographs & Tally Marks", "Drawing Conclusion from Charts"]
-      },
-      {
-        id: 8,
-        title: "Speed, Distance & Time Essentials",
-        lessons: 5,
-        duration: "2h 15m",
-        status: "pending",
-        topics: ["Units of Speed (km/h, m/s)", "Elapsed Time Calculation", "Real-World Travel Scenarios"]
       }
     ]
   },
   {
     id: "science-5",
-    title: "Science & EVS",
+    title: "Science & Environment",
     subjectCode: "SCI-05",
     grade: "Class 5th",
     tagline: "Living World, Matter, Energy & The Earth",
@@ -101,7 +85,7 @@ export const CLASS_5_SUBJECTS = [
     chaptersCount: 12,
     lessonsCount: 42,
     worksheetsCount: 8,
-    progress: 45,
+    progress: 60,
     lastAccessed: "Chapter 3: Human Skeletal System",
     description: "Discover the wonders of the natural world through virtual labs on seed germination, body systems, simple machines, and celestial mechanics.",
     keySkills: [
@@ -137,138 +121,294 @@ export const CLASS_5_SUBJECTS = [
       },
       {
         id: 4,
-        title: "Health, Nutrition & Deficiency Diseases",
-        lessons: 5,
-        duration: "2h 00m",
-        status: "pending",
-        topics: ["Macronutrients & Micronutrients", "Balanced Diet Composition", "Communicable vs Non-communicable Illnesses"]
-      },
-      {
-        id: 5,
         title: "Solids, Liquids, Gases & Solutions",
         lessons: 5,
         duration: "2h 15m",
         status: "pending",
-        topics: ["Molecular Arrangement", "Solubility & Saturation", "Separation Techniques (Filtration, Evaporation)"]
-      },
-      {
-        id: 6,
-        title: "Force, Energy & Simple Machines",
-        lessons: 6,
-        duration: "2h 45m",
-        status: "pending",
-        topics: ["Types of Forces (Frictional, Gravitational)", "Work & Energy Forms", "Class 1, 2, 3 Levers & Pulleys"]
-      },
-      {
-        id: 7,
-        title: "Rocks, Minerals & Soil Conservation",
-        lessons: 5,
-        duration: "2h 05m",
-        status: "pending",
-        topics: ["Igneous, Sedimentary & Metamorphic", "Soil Profile & Layers", "Causes of Soil Erosion & Prevention"]
-      },
-      {
-        id: 8,
-        title: "Earth, Sun, Moon & Eclipses",
-        lessons: 5,
-        duration: "2h 25m",
-        status: "pending",
-        topics: ["Phases of the Moon", "Solar & Lunar Eclipses", "Tides & Artificial Satellites"]
+        topics: ["Molecular Arrangement", "Solubility & Saturation", "Separation Techniques"]
       }
     ]
   },
   {
     id: "english-5",
-    title: "English Language",
+    title: "English Literature",
     subjectCode: "ENG-05",
     grade: "Class 5th",
-    tagline: "Grammar, Reading Comprehension & Writing",
+    tagline: "Reading Comprehension, Stories & Poems",
     iconName: "BookOpenCheck",
     badge: "Fluency Track",
     rating: 4.89,
     enrolledCount: "35.1k",
-    chaptersCount: 16,
-    lessonsCount: 52,
-    worksheetsCount: 20,
-    progress: 80,
-    lastAccessed: "Chapter 6: Creative Story Writing",
-    description: "Master grammar structures, build rich contextual vocabulary, explore captivating literary stories, and develop confident writing skills.",
+    chaptersCount: 10,
+    lessonsCount: 38,
+    worksheetsCount: 15,
+    progress: 25,
+    lastAccessed: "Chapter 2: Wonderful Waste!",
+    description: "Explore engaging stories, poems, and reading comprehension passages to build vocabulary and deep literary appreciation.",
     keySkills: [
-      "Noun varieties, pronoun agreements & adjectives of degree",
-      "Simple, continuous & perfect tenses in active usage",
-      "Inferential reading comprehension & central theme analysis",
-      "Structured paragraphing, informal letters & descriptive writing"
+      "Reading comprehension & central idea analysis",
+      "Vocabulary building & contextual meaning",
+      "Sensory description & story sequencing",
+      "Poetic devices & rhyming patterns"
     ],
     chapters: [
       {
         id: 1,
-        title: "Sentence Types & Subject-Verb Agreement",
-        lessons: 6,
-        duration: "2h 30m",
+        title: "Ice-Cream Man & Wonderful Waste!",
+        lessons: 5,
+        duration: "2h 00m",
         status: "completed",
-        topics: ["Declarative, Interrogative, Exclamatory", "Subject and Predicate Separation", "Singular/Plural Agreement"]
+        topics: ["Poem Recitation & Meaning", "Recycling Household Waste Story", "Vocabulary & Synonyms"]
       },
       {
         id: 2,
-        title: "Nouns, Pronouns & Articles",
-        lessons: 6,
-        duration: "2h 40m",
-        status: "completed",
-        topics: ["Abstract & Collective Nouns", "Personal, Possessive & Demonstrative", "Definite (The) & Indefinite (A/An) Articles"]
+        title: "Teamwork & Flying Together",
+        lessons: 5,
+        duration: "2h 15m",
+        status: "in_progress",
+        topics: ["Moral Values of Teamwork", "Fable Analysis & Character Traits", "Compound Words & Expressions"]
       },
       {
         id: 3,
-        title: "Adjectives, Adverbs & Comparison",
-        lessons: 7,
-        duration: "3h 05m",
+        title: "My Shadow & Robinson Crusoe",
+        lessons: 6,
+        duration: "2h 30m",
+        status: "pending",
+        topics: ["Understanding Shadows Science in Poetry", "Adventure Fiction Analysis", "Diary Entry Writing"]
+      }
+    ]
+  },
+  {
+    id: "english-grammar-5",
+    title: "English Grammar",
+    subjectCode: "ENG-GRM-05",
+    grade: "Class 5th",
+    tagline: "Parts of Speech, Tenses & Sentence Structure",
+    iconName: "BookOpenCheck",
+    badge: "Grammar Master",
+    rating: 4.93,
+    enrolledCount: "31.2k",
+    chaptersCount: 12,
+    lessonsCount: 44,
+    worksheetsCount: 18,
+    progress: 50,
+    lastAccessed: "Chapter 3: Prepositions & Conjunctions",
+    description: "Master essential rules of English grammar, including tenses, parts of speech, punctuation, and active/passive voice transformation.",
+    keySkills: [
+      "Noun types, pronoun agreement & degrees of comparison",
+      "Simple, continuous & perfect verb tenses",
+      "Prepositions of time, place & movement",
+      "Direct vs Indirect speech & accurate punctuation"
+    ],
+    chapters: [
+      {
+        id: 1,
+        title: "Parts of Speech Mastery",
+        lessons: 6,
+        duration: "2h 30m",
         status: "completed",
-        topics: ["Degrees of Comparison", "Adverbs of Manner, Place & Time", "Sentence Placement Rules"]
+        topics: ["Abstract & Collective Nouns", "Personal & Possessive Pronouns", "Adjectives of Degree"]
+      },
+      {
+        id: 2,
+        title: "The Verb Tenses System",
+        lessons: 7,
+        duration: "3h 00m",
+        status: "completed",
+        topics: ["Present & Past Continuous", "Present Perfect Usage", "Future Action Expressing"]
+      },
+      {
+        id: 3,
+        title: "Prepositions & Conjunctions",
+        lessons: 6,
+        duration: "2h 20m",
+        status: "in_progress",
+        topics: ["Prepositions of Place (in, on, under, above)", "Coordinating Conjunctions (FANBOYS)", "Subordinating Connectors"]
       },
       {
         id: 4,
-        title: "Verbs & Verb Tenses System",
-        lessons: 7,
-        duration: "3h 15m",
+        title: "Direct & Reported Speech",
+        lessons: 5,
+        duration: "2h 10m",
+        status: "pending",
+        topics: ["Quotation Marks Rules", "Changing Tenses in Indirect Speech", "Reporting Verbs"]
+      }
+    ]
+  },
+  {
+    id: "hindi-literature-5",
+    title: "Hindi (हिंदी साहित्य)",
+    subjectCode: "HIN-05",
+    grade: "कक्षा 5",
+    tagline: "रिमझिम - कविताएँ, कहानियाँ एवं लोककथाएँ",
+    iconName: "BookOpen",
+    badge: "मातृभाषा",
+    rating: 4.91,
+    enrolledCount: "28.5k",
+    chaptersCount: 14,
+    lessonsCount: 40,
+    worksheetsCount: 12,
+    progress: 35,
+    lastAccessed: "पाठ 3: खिलौनेवाला",
+    description: "हिन्दी साहित्य के समृद्ध पाठों, लोककथाओं, सुभद्रा कुमारी चौहान की कविताओं और नैतिक कहानियों का अध्ययन।",
+    keySkills: [
+      "कविता वाचन एवं भावार्थ ग्रहण",
+      "शब्द भंडार, कठिन शब्द एवं पर्यायवाची",
+      "कहानी का सार एवं नैतिक शिक्षा",
+      "अनुच्छेद एवं पत्र लेखन"
+    ],
+    chapters: [
+      {
+        id: 1,
+        title: "पाठ 1: राख की रस्सी (तिब्बती लोककथा)",
+        lessons: 4,
+        duration: "1h 45m",
         status: "completed",
-        topics: ["Present, Past & Future Tenses", "Continuous & Perfect Aspect", "Regular vs Irregular Verb Forms"]
+        topics: ["लोककथा की समझ", "लपका और समझदार लड़की की बुद्धि", "शब्दार्थ एवं प्रश्नोत्तर"]
       },
       {
-        id: 5,
-        title: "Punctuation & Direct/Indirect Speech",
+        id: 2,
+        title: "पाठ 2: फसलों के त्योहार (सांस्कृतिक निबंध)",
+        lessons: 5,
+        duration: "2h 00m",
+        status: "completed",
+        topics: ["मकर संक्रांति, बिहू, पोंगल की विविधता", "भारत के प्रमुख कृषि पर्व", "खान-पान एवं लोक संस्कृति"]
+      },
+      {
+        id: 3,
+        title: "पाठ 3: खिलौनेवाला (कविता - सुभद्रा कुमारी चौहान)",
+        lessons: 5,
+        duration: "2h 10m",
+        status: "in_progress",
+        topics: ["कविता का सस्वर वाचन", "रामायण संदर्भ एवं माँ का प्रेम", "तुकबंदी वाले शब्द"]
+      },
+      {
+        id: 4,
+        title: "पाठ 4: नन्हें फनकार (कहानी)",
+        lessons: 5,
+        duration: "2h 15m",
+        status: "pending",
+        topics: ["केशव की नक्काशी कला", "सम्राट अकबर से भेंट", "शिल्प कला एवं लगन"]
+      }
+    ]
+  },
+  {
+    id: "hindi-grammar-5",
+    title: "Hindi Grammar (हिंदी व्याकरण)",
+    subjectCode: "HIN-GRM-05",
+    grade: "कक्षा 5",
+    tagline: "व्याकरण के नियम, भाषा, संधि एवं मुहावरे",
+    iconName: "BookOpenCheck",
+    badge: "व्याकरण",
+    rating: 4.88,
+    enrolledCount: "27.1k",
+    chaptersCount: 12,
+    lessonsCount: 36,
+    worksheetsCount: 10,
+    progress: 40,
+    lastAccessed: "अध्याय 3: संज्ञा एवं उसके भेद",
+    description: "शुद्ध हिन्दी भाषा बोलने और लिखने के लिए व्याकरण के बुनियादी सिद्धांतों, लिंग, वचन, कारक एवं मुहावरों का अभ्यास।",
+    keySkills: [
+      "भाषा, लिपि और देवनागरी मानक नियम",
+      "संज्ञा, सर्वनाम, विशेषण और क्रिया भेद",
+      "वचन परिवर्तन एवं लिंग पहचान नियम",
+      "पर्यायवाची, विलोम शब्द एवं लोकप्रिय मुहावरे"
+    ],
+    chapters: [
+      {
+        id: 1,
+        title: "अध्याय 1: भाषा, लिपि और व्याकरण",
+        lessons: 4,
+        duration: "1h 30m",
+        status: "completed",
+        topics: ["मौखिक और लिखित भाषा", "भारत की प्रमुख भाषाएँ एवं लिपियाँ", "व्याकरण का महत्व"]
+      },
+      {
+        id: 2,
+        title: "अध्याय 2: वर्ण विचार और मात्राएँ",
+        lessons: 5,
+        duration: "1h 50m",
+        status: "completed",
+        topics: ["स्वर और व्यंजन भेद", "अनुस्वार और अनुनासिक", "संयुक्ताक्षर नियम"]
+      },
+      {
+        id: 3,
+        title: "अध्याय 3: संज्ञा और उसके मुख्य भेद",
+        lessons: 5,
+        duration: "2h 00m",
+        status: "in_progress",
+        topics: ["व्यक्तिवाचक संज्ञा", "जातिवाचक संज्ञा", "भाववाचक संज्ञा बनाना"]
+      },
+      {
+        id: 4,
+        title: "अध्याय 4: मुहावरे और लोकोक्तियाँ",
+        lessons: 5,
+        duration: "2h 10m",
+        status: "pending",
+        topics: ["दैनिक जीवन के मुहावरे", "वाक्य प्रयोग अभ्यास", "समानार्थी शब्द"]
+      }
+    ]
+  },
+  {
+    id: "general-knowledge-5",
+    title: "General Knowledge (GK)",
+    subjectCode: "GK-05",
+    grade: "Class 5th",
+    tagline: "India, Space, Nature, Wonders & Current Knowledge",
+    iconName: "Globe2",
+    badge: "World Awareness",
+    rating: 4.96,
+    enrolledCount: "38.2k",
+    chaptersCount: 15,
+    lessonsCount: 50,
+    worksheetsCount: 25,
+    progress: 55,
+    lastAccessed: "Chapter 2: Wonders of Space & Planets",
+    description: "Expand your curiosity with fun quizzes and facts on Incredible India, space science, world landmarks, nature trivia, and famous inventions.",
+    keySkills: [
+      "Indian states, capitals, national symbols & heritage",
+      "Solar system, space missions & astronomy facts",
+      "World geography, continents, oceans & highest peaks",
+      "Famous inventors, sports records & environmental conservation"
+    ],
+    chapters: [
+      {
+        id: 1,
+        title: "Incredible India: Heritage & Culture",
+        lessons: 6,
+        duration: "2h 10m",
+        status: "completed",
+        topics: ["States, Union Territories & Capitals", "National Symbols & Monuments", "Folk Dances & Festivals"]
+      },
+      {
+        id: 2,
+        title: "Solar System & Space Wonders",
         lessons: 6,
         duration: "2h 20m",
-        status: "completed",
-        topics: ["Quotation Marks & Apostrophes", "Converting Direct to Reported Speech", "Comma Usage in Lists"]
-      },
-      {
-        id: 6,
-        title: "Reading Comprehension & Story Analysis",
-        lessons: 7,
-        duration: "2h 55m",
         status: "in_progress",
-        topics: ["Main Idea & Supporting Details", "Inferring Character Motives", "Unfamiliar Words from Context"]
+        topics: ["Planets & Asteroids Facts", "ISRO & Chandrayaan Missions", "Famous Astronauts"]
       },
       {
-        id: 7,
-        title: "Creative Story & Narrative Writing",
-        lessons: 6,
-        duration: "2h 40m",
+        id: 3,
+        title: "World Landmarks & Geographical Wonders",
+        lessons: 5,
+        duration: "2h 00m",
         status: "pending",
-        topics: ["Plot Structure (Beginning, Middle, Climax)", "Descriptive Sensory Language", "Dialogue Writing Techniques"]
+        topics: ["7 Wonders of the Ancient & Modern World", "Longest Rivers & Highest Mountains", "Continents & Oceans Trivia"]
       },
       {
-        id: 8,
-        title: "Formal Notices & Letter Writing",
-        lessons: 7,
-        duration: "2h 30m",
+        id: 4,
+        title: "Science Inventions & Everyday Discoveries",
+        lessons: 5,
+        duration: "1h 50m",
         status: "pending",
-        topics: ["Format of an Informal Letter", "Drafting School Notices", "Email Etiquette for Students"]
+        topics: ["Inventors of Electricity, Phone & Computers", "Human Body Surprising Facts", "Animal Kingdom Wonders"]
       }
     ]
   },
   {
     id: "sst-5",
-    title: "Social Studies",
+    title: "Social Studies & Civics",
     subjectCode: "SST-05",
     grade: "Class 5th",
     tagline: "Continents, Oceans, History & Civic Life",
@@ -312,46 +452,6 @@ export const CLASS_5_SUBJECTS = [
         duration: "2h 15m",
         status: "in_progress",
         topics: ["Mountains, Plateaus & Plains", "Peninsulas, Islands & Isthmuses", "The Five Major Oceans"]
-      },
-      {
-        id: 4,
-        title: "Weather, Climate & Thermal Zones",
-        lessons: 4,
-        duration: "1h 50m",
-        status: "pending",
-        topics: ["Difference Between Weather & Climate", "Torrid, Temperate & Frigid Zones", "Factors Influencing Climate (Altitude, Sea proximity)"]
-      },
-      {
-        id: 5,
-        title: "The Struggle for Indian Independence",
-        lessons: 5,
-        duration: "2h 30m",
-        status: "pending",
-        topics: ["The Revolt of 1857", "National Leaders & Movements", "The Dawn of Independence (1947)"]
-      },
-      {
-        id: 6,
-        title: "The Constitution & Our Democratic Rights",
-        lessons: 5,
-        duration: "2h 15m",
-        status: "pending",
-        topics: ["Fundamental Rights & Duties", "Directive Principles of State Policy", "Values in the Preamble"]
-      },
-      {
-        id: 7,
-        title: "How Our Government Operates",
-        lessons: 4,
-        duration: "1h 55m",
-        status: "pending",
-        topics: ["Central Government (Lok Sabha, Rajya Sabha)", "State Government & Governors", "Gram Panchayats & Municipalities"]
-      },
-      {
-        id: 8,
-        title: "United Nations & Global Harmony",
-        lessons: 4,
-        duration: "1h 40m",
-        status: "pending",
-        topics: ["Formation of the UN (1945)", "Main Organs & Agencies (UNESCO, UNICEF, WHO)", "Human Rights & Global Peace"]
       }
     ]
   }

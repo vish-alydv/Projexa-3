@@ -1,227 +1,221 @@
 import React, { useState } from 'react';
 import { 
   Calculator, 
-  Microscope, 
-  BookOpenCheck, 
-  Globe2, 
-  ArrowLeft, 
+  FlaskConical, 
   BookOpen, 
-  GraduationCap, 
-  PlayCircle, 
-  Sparkles 
+  BookOpenCheck, 
+  Globe, 
+  Sparkles
 } from 'lucide-react';
-import GlassCard from '../common/GlassCard';
-import { CLASS_5_SUBJECTS } from '../../data/class5Data';
 import SubjectChapterModal from '../modals/SubjectChapterModal';
 import SubjectPracticeModal from '../modals/SubjectPracticeModal';
 
-export default function CoursesPage({ onBackToHome, onOpenAuth }) {
-  const [selectedSubject, setSelectedSubject] = useState(null);
-  const [practiceSubject, setPracticeSubject] = useState(null);
+export default function CoursesPage() {
+  const [selectedFilter, setSelectedFilter] = useState('all');
+  const [selectedSubjectModal, setSelectedSubjectModal] = useState(null);
+  const [practiceSubjectModal, setPracticeSubjectModal] = useState(null);
 
-  const iconMap = {
-    Calculator: Calculator,
-    Microscope: Microscope,
-    BookOpenCheck: BookOpenCheck,
-    Globe2: Globe2,
-  };
+  const filterPills = [
+    { id: 'all', label: 'All Subjects' },
+    { id: 'math', label: '🧮 Math' },
+    { id: 'science', label: '🔬 Science' },
+    { id: 'english', label: '📖 English' },
+    { id: 'eng-grm', label: '✍️ English Grammar' },
+    { id: 'hindi', label: '🇮🇳 Hindi' },
+    { id: 'hin-grm', label: '📚 Hindi Grammar' },
+    { id: 'gk', label: '🧠 General Knowledge' },
+    { id: 'sst', label: '🌍 Social Studies' },
+  ];
+
+  const courses = [
+    {
+      id: 'maths-5',
+      filterId: 'math',
+      title: 'Mathematics',
+      subtitle: '14 Chapters • 48 Lessons',
+      progressPercent: 65,
+      icon: Calculator,
+      iconBg: 'bg-amber-100 text-amber-700',
+      progressColor: 'bg-indigo-600',
+    },
+    {
+      id: 'science-5',
+      filterId: 'science',
+      title: 'Science & Environment',
+      subtitle: '12 Chapters • 42 Lessons',
+      progressPercent: 60,
+      icon: FlaskConical,
+      iconBg: 'bg-emerald-100 text-emerald-700',
+      progressColor: 'bg-emerald-500',
+    },
+    {
+      id: 'english-5',
+      filterId: 'english',
+      title: 'English Literature',
+      subtitle: '10 Chapters • 38 Lessons',
+      progressPercent: 25,
+      icon: BookOpen,
+      iconBg: 'bg-blue-100 text-blue-700',
+      progressColor: 'bg-blue-500',
+    },
+    {
+      id: 'english-grammar-5',
+      filterId: 'eng-grm',
+      title: 'English Grammar',
+      subtitle: '12 Chapters • 44 Lessons',
+      progressPercent: 50,
+      icon: BookOpenCheck,
+      iconBg: 'bg-indigo-100 text-indigo-700',
+      progressColor: 'bg-indigo-500',
+    },
+    {
+      id: 'hindi-literature-5',
+      filterId: 'hindi',
+      title: 'Hindi (हिंदी साहित्य)',
+      subtitle: '14 पाठ • 40 पाठ्य सामग्री',
+      progressPercent: 35,
+      icon: BookOpen,
+      iconBg: 'bg-orange-100 text-orange-700',
+      progressColor: 'bg-orange-500',
+    },
+    {
+      id: 'hindi-grammar-5',
+      filterId: 'hin-grm',
+      title: 'Hindi Grammar (व्याकरण)',
+      subtitle: '12 अध्याय • 36 पाठ्य सामग्री',
+      progressPercent: 40,
+      icon: BookOpenCheck,
+      iconBg: 'bg-rose-100 text-rose-700',
+      progressColor: 'bg-rose-500',
+    },
+    {
+      id: 'general-knowledge-5',
+      filterId: 'gk',
+      title: 'General Knowledge (GK)',
+      subtitle: '15 Chapters • 50 Quizzes',
+      progressPercent: 55,
+      icon: Sparkles,
+      iconBg: 'bg-teal-100 text-teal-800',
+      progressColor: 'bg-teal-600',
+    },
+    {
+      id: 'sst-5',
+      filterId: 'sst',
+      title: 'Social Studies & Civics',
+      subtitle: '10 Chapters • 36 Lessons',
+      progressPercent: 30,
+      icon: Globe,
+      iconBg: 'bg-purple-100 text-purple-700',
+      progressColor: 'bg-purple-600',
+    }
+  ];
+
+  const filteredCourses = selectedFilter === 'all' 
+    ? courses 
+    : courses.filter(c => c.filterId === selectedFilter);
 
   return (
-    <div className="pt-28 pb-24 relative overflow-hidden bg-radial-teal min-h-screen">
-      {/* Background Soft Lighting - Teal ambience rgb(204, 251, 241) */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[650px] pointer-events-none -z-10">
-        <div className="absolute top-10 left-1/4 w-[450px] h-[450px] bg-[#CCFBF1]/80 rounded-full blur-[110px]" />
-        <div className="absolute top-28 right-1/4 w-[400px] h-[400px] bg-teal-200/50 rounded-full blur-[130px]" />
+    <div className="p-6 sm:p-8 max-w-6xl mx-auto flex flex-col gap-6">
+      {/* Page Header */}
+      <div>
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          Class 5 Courses
+        </h1>
+        <p className="mt-1 text-xs sm:text-sm text-slate-500 font-medium">
+          Select a subject to explore units, lessons, and practice drills.
+        </p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Navigation Breadcrumb Bar */}
-        <div className="flex items-center justify-between mb-8">
-          <button
-            onClick={onBackToHome}
-            className="group inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/80 hover:bg-white border border-teal-200/70 text-xs sm:text-sm font-semibold text-[#0D9488] shadow-sm hover:shadow transition-all duration-150"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
-            <span>Back to Home</span>
-          </button>
+      {/* Subject Filter Pills with Scrollbar */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-2">
+        {filterPills.map((pill) => {
+          const isActive = selectedFilter === pill.id;
+          return (
+            <button
+              key={pill.id}
+              onClick={() => setSelectedFilter(pill.id)}
+              className={`px-4 py-2 rounded-full text-xs font-semibold transition-all shrink-0 ${
+                isActive 
+                  ? 'bg-indigo-600 text-white shadow-sm' 
+                  : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+              }`}
+            >
+              {pill.label}
+            </button>
+          );
+        })}
+      </div>
 
-          {/* Grade Badge */}
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#CCFBF1] border border-teal-200 text-xs font-bold text-[#0D9488]">
-            <GraduationCap className="w-4 h-4" />
-            <span>Class 5th Curriculum</span>
-          </div>
+      {/* Course Cards Grid */}
+      <div className="flex flex-col gap-3 mt-1">
+        <div className="flex items-center justify-between">
+          <h3 className="text-base font-bold text-slate-900">
+            Available Subjects ({filteredCourses.length})
+          </h3>
         </div>
 
-        {/* Page Hero Header with Teal Educational Design */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#CCFBF1] border border-teal-200/90 text-xs font-bold text-[#0D9488] uppercase tracking-wider mb-4 shadow-sm">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Grade 5 Foundation Courses</span>
-          </div>
-
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Class 5th{' '}
-            <span className="text-[#0D9488] relative">
-              Core Subjects
-              <span className="absolute left-0 -bottom-1 w-full h-1 bg-[#0D9488]/30 rounded-full" />
-            </span>
-          </h1>
-
-          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-            Built specifically for 5th Grade learners. Understand core principles through interactive chapter breakdowns, visual explanations, and self-paced worksheets.
-          </p>
-        </div>
-
-        {/* 4 Subjects Grid according to Class 5th */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {CLASS_5_SUBJECTS.map((subject) => {
-            const Icon = iconMap[subject.iconName] || BookOpen;
-
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {filteredCourses.map((course) => {
+            const Icon = course.icon;
             return (
-              <GlassCard
-                key={subject.id}
-                hoverEffect
-                padding="p-7 sm:p-8"
-                className="flex flex-col justify-between border-teal-100/90 group relative overflow-hidden"
+              <div 
+                key={course.id}
+                className="bg-white border border-slate-200/90 rounded-2xl p-5 flex flex-col justify-between gap-4 shadow-sm hover:border-indigo-200 hover:shadow-md transition-all"
               >
-                {/* Soft ambient corner glow inside card */}
-                <div className="absolute -top-12 -right-12 w-36 h-36 bg-[#CCFBF1]/50 rounded-full blur-2xl pointer-events-none" />
+                <div>
+                  <div className="flex items-start gap-3">
+                    <div className={`p-2.5 rounded-xl ${course.iconBg} shrink-0 mt-0.5`}>
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="text-base font-bold text-slate-900 leading-snug">
+                        {course.title}
+                      </h4>
+                      <p className="text-xs text-slate-400 font-medium mt-0.5">
+                        {course.subtitle}
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
                 <div>
-                  {/* Top Strip: Icon, Grade & Badge */}
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="flex items-center gap-3">
-                      <div className="w-14 h-14 rounded-2xl bg-[#CCFBF1] border border-teal-200 flex items-center justify-center text-[#0D9488] shadow-sm group-hover:scale-105 transition-transform duration-200">
-                        <Icon className="w-7 h-7" strokeWidth={2.2} />
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-[11px] font-bold uppercase tracking-wider text-[#0D9488]">
-                            {subject.grade}
-                          </span>
-                          <span className="text-slate-300">•</span>
-                          <span className="text-xs font-medium text-slate-500">
-                            {subject.subjectCode}
-                          </span>
-                        </div>
-                        <h2 className="text-2xl font-bold text-slate-900 group-hover:text-[#0D9488] transition-colors">
-                          {subject.title}
-                        </h2>
-                      </div>
-                    </div>
-
-                    <span className="hidden sm:inline-flex px-3 py-1 rounded-full text-xs font-bold bg-[#CCFBF1] text-[#0D9488] border border-teal-200">
-                      {subject.badge}
-                    </span>
+                  <div className="flex items-center justify-between text-xs font-semibold text-slate-500 mb-1.5">
+                    <span>Progress</span>
+                    <span className="text-indigo-600 font-bold">{course.progressPercent}%</span>
+                  </div>
+                  <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden mb-4">
+                    <div 
+                      className={`h-full rounded-full ${course.progressColor}`}
+                      style={{ width: `${course.progressPercent}%` }}
+                    />
                   </div>
 
-                  {/* Tagline */}
-                  <div className="text-xs font-semibold text-teal-700 mb-2">
-                    {subject.tagline}
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-sm text-slate-600 leading-relaxed mb-6">
-                    {subject.description}
-                  </p>
-
-                  {/* Progress Bar in Teal */}
-                  <div className="p-3.5 rounded-2xl bg-[#CCFBF1]/30 border border-teal-100 mb-6">
-                    <div className="flex items-center justify-between text-xs font-semibold mb-1.5">
-                      <span className="text-slate-700">Course Completion</span>
-                      <span className="text-[#0D9488] font-bold">{subject.progress}%</span>
-                    </div>
-                    <div className="w-full h-2 bg-teal-200/50 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-[#0D9488] rounded-full transition-all duration-700"
-                        style={{ width: `${subject.progress}%` }}
-                      />
-                    </div>
-                    <div className="mt-2 text-[11px] text-slate-500 flex items-center justify-between">
-                      <span>Last: {subject.lastAccessed}</span>
-                      <span className="text-[#0D9488] font-medium">Synced</span>
-                    </div>
-                  </div>
+                  <button
+                    onClick={() => setSelectedSubjectModal(course.id)}
+                    className="w-full py-2.5 px-4 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl text-xs font-bold transition-colors"
+                  >
+                    View Lessons
+                  </button>
                 </div>
-
-                {/* Bottom Row: Stats & TWO Separate Buttons */}
-                <div className="pt-5 border-t border-slate-100">
-                  <div className="grid grid-cols-3 gap-2 text-center text-xs text-slate-600 mb-5">
-                    <div className="p-2 rounded-xl bg-slate-50 border border-slate-100">
-                      <div className="font-bold text-slate-900 text-sm">{subject.chaptersCount}</div>
-                      <div className="text-[10px] text-slate-500">Chapters</div>
-                    </div>
-                    <div className="p-2 rounded-xl bg-slate-50 border border-slate-100">
-                      <div className="font-bold text-slate-900 text-sm">{subject.lessonsCount}</div>
-                      <div className="text-[10px] text-slate-500">Lessons</div>
-                    </div>
-                    <div className="p-2 rounded-xl bg-slate-50 border border-slate-100">
-                      <div className="font-bold text-slate-900 text-sm">{subject.worksheetsCount}</div>
-                      <div className="text-[10px] text-slate-500">Worksheets</div>
-                    </div>
-                  </div>
-
-                  {/* Two Separate Buttons: Start Practice & View Syllabus */}
-                  <div className="flex flex-col sm:flex-row items-center gap-3">
-                    {/* Button 1: Start Practice */}
-                    <button
-                      onClick={() => setPracticeSubject(subject)}
-                      className="w-full sm:flex-1 group/btn flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#0D9488] hover:bg-teal-700 text-white text-xs sm:text-sm font-semibold shadow-md shadow-teal-700/20 hover:shadow-lg transition-all duration-150 active:scale-[0.98]"
-                    >
-                      <PlayCircle className="w-4 h-4 text-white" />
-                      <span>Start Practice</span>
-                    </button>
-
-                    {/* Button 2: View Syllabus */}
-                    <button
-                      onClick={() => setSelectedSubject(subject)}
-                      className="w-full sm:flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-white/90 hover:bg-white text-slate-700 hover:text-[#0D9488] border border-teal-200/90 hover:border-[#0D9488] text-xs sm:text-sm font-semibold shadow-xs hover:shadow transition-all duration-150 active:scale-[0.98]"
-                    >
-                      <BookOpen className="w-4 h-4 text-[#0D9488]" />
-                      <span>View Syllabus</span>
-                    </button>
-                  </div>
-                </div>
-              </GlassCard>
+              </div>
             );
           })}
         </div>
-
-        {/* Bottom Educational Banner */}
-        <div className="mt-16 rounded-3xl bg-[#CCFBF1]/50 border border-teal-200/80 p-8 text-center backdrop-blur-xl">
-          <div className="max-w-2xl mx-auto">
-            <h3 className="text-xl font-bold text-slate-900 mb-2">
-              Class 5th Academic Standards Compliance
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
-              All 4 core subjects are aligned with modern pedagogical frameworks (CBSE, ICSE, and International Cambridge Primary), focusing on deep conceptual clarity rather than rote memorization.
-            </p>
-            <button
-              onClick={onBackToHome}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white hover:bg-slate-50 border border-teal-200 text-[#0D9488] text-xs sm:text-sm font-bold shadow-sm transition-all"
-            >
-              <span>Return to Main Platform</span>
-              <ArrowLeft className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
       </div>
 
-      {/* Chapter & Syllabus Inspector Modal */}
+      {/* Modals */}
       <SubjectChapterModal
-        subject={selectedSubject}
-        onClose={() => setSelectedSubject(null)}
-        onStartLesson={(chap) => {
-          const s = selectedSubject;
-          setSelectedSubject(null);
-          setPracticeSubject(s);
+        subjectId={selectedSubjectModal}
+        onClose={() => setSelectedSubjectModal(null)}
+        onStartPractice={(subject) => {
+          setSelectedSubjectModal(null);
+          setPracticeSubjectModal(subject);
         }}
       />
 
-      {/* Chapter Practice Sessions Modal (Same type layout as View Syllabus) */}
       <SubjectPracticeModal
-        subject={practiceSubject}
-        onClose={() => setPracticeSubject(null)}
+        subject={practiceSubjectModal}
+        onClose={() => setPracticeSubjectModal(null)}
       />
     </div>
   );

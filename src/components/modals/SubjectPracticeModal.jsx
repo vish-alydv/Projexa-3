@@ -15,11 +15,20 @@ import {
 } from 'lucide-react';
 import FullScreenDrillModal from '../practice/FullScreenDrillModal';
 
-export default function SubjectPracticeModal({ subject, onClose }) {
+import { CLASS_5_SUBJECTS } from '../../data/class5Data';
+
+export default function SubjectPracticeModal({ subject: subjectProp, onClose }) {
   const [activeChapterIndex, setActiveChapterIndex] = useState(0);
   const [fullScreenDrill, setFullScreenDrill] = useState(null);
 
-  if (!subject) return null;
+  if (!subjectProp) return null;
+
+  const targetId = typeof subjectProp === 'string' ? subjectProp : (subjectProp?.subjectId || subjectProp?.id);
+  const subject = (typeof subjectProp === 'object' && subjectProp !== null && subjectProp.chapters)
+    ? subjectProp
+    : CLASS_5_SUBJECTS.find(s => s.id === targetId);
+
+  if (!subject || !subject.chapters) return null;
 
   const iconMap = {
     Calculator: Calculator,

@@ -17,10 +17,19 @@ import {
   ArrowRight
 } from 'lucide-react';
 
-export default function SubjectChapterModal({ subject, onClose, onStartLesson }) {
+import { CLASS_5_SUBJECTS } from '../../data/class5Data';
+
+export default function SubjectChapterModal({ subjectId, subject: subjectProp, onClose, onStartLesson }) {
   const [activeChapterIndex, setActiveChapterIndex] = useState(0);
 
-  if (!subject) return null;
+  if (!subjectId && !subjectProp) return null;
+
+  const targetId = subjectId || (typeof subjectProp === 'string' ? subjectProp : subjectProp?.id);
+  const subject = (typeof subjectProp === 'object' && subjectProp !== null && subjectProp.chapters)
+    ? subjectProp
+    : CLASS_5_SUBJECTS.find(s => s.id === targetId);
+
+  if (!subject || !subject.chapters) return null;
 
   const iconMap = {
     Calculator: Calculator,

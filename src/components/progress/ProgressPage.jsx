@@ -35,35 +35,14 @@ export default function ProgressPage({ onBackToHome, onNavigateCourses, onOpenAu
 
   const achievements = [
     { title: "4-Day Focus Streak", desc: "Practiced 4 consecutive days without missing a single lesson.", icon: Flame, color: "text-amber-500 bg-amber-50 border-amber-200" },
-    { title: "Fraction Virtuoso", desc: "Scored 100% on Chapter 4 Visual Fractions Drill.", icon: Award, color: "text-teal-600 bg-teal-50 border-teal-200" },
+    { title: "Fraction Virtuoso", desc: "Scored 100% on Chapter 4 Visual Fractions Drill.", icon: Award, color: "text-indigo-600 bg-indigo-50 border-indigo-200" },
     { title: "Science Investigator", desc: "Completed 5 virtual seed germination labs.", icon: Sparkles, color: "text-emerald-600 bg-emerald-50 border-emerald-200" },
     { title: "Grammar Champion", desc: "Mastered all 8 parts of speech in English Language.", icon: Target, color: "text-blue-600 bg-blue-50 border-blue-200" },
   ];
 
   return (
-    <div className="pt-28 pb-24 relative overflow-hidden bg-radial-teal min-h-screen">
-      {/* Background Soft Lighting - Teal ambience rgb(204, 251, 241) */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[650px] pointer-events-none -z-10">
-        <div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-[#CCFBF1]/80 rounded-full blur-[120px]" />
-        <div className="absolute top-28 right-1/4 w-[420px] h-[420px] bg-teal-200/40 rounded-full blur-[140px]" />
-      </div>
+    <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full">
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Navigation Breadcrumb Bar */}
-        <div className="flex items-center justify-between mb-8">
-          <button
-            onClick={onBackToHome}
-            className="group inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/80 hover:bg-white border border-teal-200/70 text-xs sm:text-sm font-semibold text-[#0D9488] shadow-sm hover:shadow transition-all duration-150"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
-            <span>Back to Home</span>
-          </button>
-
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#CCFBF1] border border-teal-200 text-xs font-bold text-[#0D9488]">
-            <BarChart3 className="w-3.5 h-3.5" />
-            <span>Live Student Telemetry</span>
-          </div>
-        </div>
 
         {/* Page Hero Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
@@ -370,7 +349,7 @@ export default function ProgressPage({ onBackToHome, onNavigateCourses, onOpenAu
             })}
           </div>
         </div>
-      </div>
     </div>
   );
 }
+

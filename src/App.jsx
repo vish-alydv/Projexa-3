@@ -1,34 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from './components/layout/Navbar';
-import HeroSection from './components/hero/HeroSection';
-import TrustStrip from './components/sections/TrustStrip';
-import FeaturesSection from './components/sections/FeaturesSection';
-import LearningPathsSection from './components/sections/LearningPathsSection';
-import ProgressDashboardSection from './components/sections/ProgressDashboardSection';
-import HowItWorksSection from './components/sections/HowItWorksSection';
-import FinalCtaSection from './components/sections/FinalCtaSection';
-import Footer from './components/layout/Footer';
-import AuthModal from './components/modals/AuthModal';
-import PathDetailModal from './components/modals/PathDetailModal';
+import Sidebar from './components/layout/Sidebar';
+import TopBar from './components/layout/TopBar';
 import CoursesPage from './components/courses/CoursesPage';
-import ProgressPage from './components/progress/ProgressPage';
-import AboutPage from './components/about/AboutPage';
 import DailyLifeQuizzesPage from './components/quizzes/DailyLifeQuizzesPage';
+import ProgressPage from './components/progress/ProgressPage';
+import EditStudentModal from './components/modals/EditStudentModal';
 
 export default function App() {
-  const [activePage, setActivePage] = useState('home'); // 'home' | 'courses' | 'progress' | 'about' | 'daily-life'
-  const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [authMode, setAuthMode] = useState('signup');
-  const [selectedPath, setSelectedPath] = useState(null);
+  const [activePage, setActivePage] = useState('courses'); // 'home' | 'courses' | 'daily-life' | 'progress'
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
 
-  // Sync with browser hash if user opens or uses back/forward buttons
+  // Sync with browser location hash
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '');
-      if (['courses', 'progress', 'about', 'daily-life'].includes(hash)) {
+      if (['courses', 'daily-life', 'progress'].includes(hash)) {
         setActivePage(hash);
       } else {
-        setActivePage('home');
+        setActivePage('courses');
       }
     };
 
@@ -37,112 +27,54 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  const handleOpenAuth = (mode = 'signup') => {
-    setAuthMode(mode);
-    setAuthModalOpen(true);
-  };
-
-  const handleSelectPath = (path) => {
-    setSelectedPath(path);
-  };
-
-  const handleEnrollPath = (path) => {
-    handleOpenAuth('signup');
-  };
-
   const handleNavigate = (page) => {
     setActivePage(page);
-    window.location.hash = page === 'home' ? '#home' : `#${page}`;
+    window.location.hash = page === 'courses' ? '#courses' : `#${page}`;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className="min-h-screen bg-[#F6F8FC] bg-radial-teal text-slate-900 flex flex-col selection:bg-[#0D9488] selection:text-white relative">
-      {/* Top sticky glass navbar with page navigation */}
-      <Navbar
-        onOpenAuth={handleOpenAuth}
+    <div className="flex min-h-screen bg-[#F4F6FB] text-slate-900 font-sans selection:bg-indigo-600 selection:text-white">
+      {/* 1. Left Sidebar Navigation */}
+      <Sidebar
         activePage={activePage}
         onNavigate={handleNavigate}
+        onOpenProfileModal={() => setIsEditProfileOpen(true)}
       />
 
-      {/* Main Content Router */}
-      <main className="flex-grow">
-        {activePage === 'courses' ? (
-          /* Dedicated Class 5th Courses Page */
-          <CoursesPage
-            onBackToHome={() => handleNavigate('home')}
-            onOpenAuth={handleOpenAuth}
-          />
-        ) : activePage === 'progress' ? (
-          /* Dedicated Progress & Telemetry Page */
-          <ProgressPage
-            onBackToHome={() => handleNavigate('home')}
-            onNavigateCourses={() => handleNavigate('courses')}
-            onOpenAuth={handleOpenAuth}
-          />
-        ) : activePage === 'about' ? (
-          /* Dedicated About & Pedagogy Page */
-          <AboutPage
-            onBackToHome={() => handleNavigate('home')}
-            onOpenAuth={handleOpenAuth}
-          />
-        ) : activePage === 'daily-life' ? (
-          /* Dedicated Daily Life Scenario Quizzes Page */
-          <DailyLifeQuizzesPage
-            onBackToHome={() => handleNavigate('home')}
-            onOpenAuth={handleOpenAuth}
-          />
-        ) : (
-          /* Home Landing Page */
-          <>
-            {/* 2. Hero Section */}
-            <HeroSection
-              onStartLearning={() => handleOpenAuth('signup')}
-              onExploreCourses={() => handleNavigate('courses')}
+      {/* 2. Right Main Workspace */}
+      <div className="flex-1 flex flex-col min-w-0 min-h-screen">
+        {/* Top Header Bar */}
+        <TopBar />
+
+        {/* View Component Router */}
+        <main className="flex-1 overflow-y-auto">
+          {activePage === 'daily-life' ? (
+            /* Daily Life Quizzes Page (Matching Image 1) */
+            <DailyLifeQuizzesPage />
+          ) : activePage === 'progress' ? (
+            /* Progress & Telemetry Page */
+            <ProgressPage
+              onBackToHome={() => handleNavigate('courses')}
+              onNavigateCourses={() => handleNavigate('courses')}
             />
+          ) : (
+            /* Class 5 Courses Page (Matching Image 2) */
+            <CoursesPage
+              onNavigateQuizzes={() => handleNavigate('daily-life')}
+              onNavigateProgress={() => handleNavigate('progress')}
+            />
+          )}
+        </main>
+      </div>
 
-            {/* 3. Trust / Value Strip */}
-            <TrustStrip />
-
-            {/* 4. Features Section */}
-            <FeaturesSection />
-
-            {/* 5. Learning Paths */}
-            <LearningPathsSection onSelectPath={handleSelectPath} />
-
-            {/* 6. Learning Progress Section */}
-            <ProgressDashboardSection onStartLearning={() => handleOpenAuth('signup')} />
-
-            {/* 7. How It Works */}
-            <HowItWorksSection onStartLearning={() => handleOpenAuth('signup')} />
-
-            {/* 8. Final CTA */}
-            <FinalCtaSection onStartLearning={() => handleOpenAuth('signup')} />
-          </>
-        )}
-      </main>
-
-      {/* 9. Footer */}
-      <Footer
-        onOpenAuth={handleOpenAuth}
-        onNavigateCourses={() => handleNavigate('courses')}
-        onNavigateProgress={() => handleNavigate('progress')}
-        onNavigateAbout={() => handleNavigate('about')}
-        onNavigateDailyLife={() => handleNavigate('daily-life')}
-      />
-
-      {/* Interactive Modals */}
-      <AuthModal
-        isOpen={authModalOpen}
-        initialMode={authMode}
-        onClose={() => setAuthModalOpen(false)}
-      />
-
-      <PathDetailModal
-        path={selectedPath}
-        onClose={() => setSelectedPath(null)}
-        onEnroll={handleEnrollPath}
-      />
+      {/* Edit Student Profile Modal */}
+      {isEditProfileOpen && (
+        <EditStudentModal
+          isOpen={isEditProfileOpen}
+          onClose={() => setIsEditProfileOpen(false)}
+        />
+      )}
     </div>
   );
 }
