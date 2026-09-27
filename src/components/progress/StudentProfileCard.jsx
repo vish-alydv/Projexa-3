@@ -7,26 +7,20 @@ import {
   Calendar, 
   ShieldCheck, 
   Edit3, 
-  GraduationCap, 
-  Award, 
-  Flame,
-  CheckCircle2,
-  FileBadge,
   Sparkles,
   Printer
 } from 'lucide-react';
-import GlassCard from '../common/GlassCard';
 import EditStudentModal from '../modals/EditStudentModal';
 
 export default function StudentProfileCard() {
   const [student, setStudent] = useState({
-    name: "Aarav Sharma",
+    name: "Alex Rivera",
     gradeSection: "Class 5th - Section B",
     studentId: "LE-2026-5821",
     rollNumber: "28",
-    email: "aarav.sharma@edu.learn-easy.com",
+    email: "alex.rivera@edu.learn-easy.com",
     phone: "+91 98765 43210",
-    guardian: "Dr. Rajesh Sharma (Father)",
+    guardian: "Dr. Rajesh Rivera (Father)",
     school: "Delhi Public School, International Wing",
     academicYear: "2026 - 2027",
     admissionDate: "15 April 2025",
@@ -39,29 +33,28 @@ export default function StudentProfileCard() {
 
   return (
     <>
-      <GlassCard padding="p-6 sm:p-8" className="border-teal-100/90 mb-12 relative overflow-hidden">
+      <div className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 mb-10 shadow-sm relative overflow-hidden">
         {/* Soft background ambient glow */}
-        <div className="absolute -top-16 -right-16 w-56 h-56 bg-[#CCFBF1]/60 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-16 -right-16 w-56 h-56 bg-indigo-50/70 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-6 border-b border-teal-100/80">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-6 border-b border-slate-100">
           {/* Left: Photo & Essential Identity */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-            {/* Student Photo with Online Beacon */}
+            {/* Student Photo with Active Status */}
             <div className="relative group flex-shrink-0">
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl overflow-hidden border-2 border-white shadow-md shadow-teal-700/10 bg-[#CCFBF1]">
+              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden border-2 border-white shadow-md bg-indigo-100">
                 <img
                   src={student.photoUrl}
                   alt={student.name}
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   onError={(e) => {
-                    // Fallback avatar if external URL fails
                     e.target.src = "https://images.unsplash.com/photo-1544717305-2782549b5136?w=400&auto=format&fit=crop&q=80";
                   }}
                 />
               </div>
 
               {/* Status active badge */}
-              <div className="absolute -bottom-1 -right-1 flex items-center gap-1 bg-white px-2 py-0.5 rounded-full border border-teal-200 shadow-xs">
+              <div className="absolute -bottom-1 -right-1 flex items-center gap-1 bg-white px-2 py-0.5 rounded-full border border-slate-200 shadow-xs">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 <span className="text-[10px] font-bold text-slate-700">Active</span>
               </div>
@@ -70,7 +63,7 @@ export default function StudentProfileCard() {
             {/* Name, Grade, and Badges */}
             <div>
               <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#CCFBF1] text-[#0D9488] border border-teal-200">
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100 text-indigo-700 border border-indigo-200">
                   {student.gradeSection}
                 </span>
                 <span className="text-xs font-semibold text-slate-500">
@@ -84,12 +77,12 @@ export default function StudentProfileCard() {
 
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
                 {student.name}
-                <ShieldCheck className="w-5 h-5 text-[#0D9488]" title="Verified Student Profile" />
+                <ShieldCheck className="w-5 h-5 text-indigo-600" title="Verified Student Profile" />
               </h2>
 
               <div className="flex flex-wrap items-center gap-4 text-xs text-slate-600 mt-2">
                 <span className="flex items-center gap-1.5 font-medium text-slate-700">
-                  <School className="w-3.5 h-3.5 text-[#0D9488]" />
+                  <School className="w-3.5 h-3.5 text-indigo-600" />
                   {student.school}
                 </span>
                 <span className="hidden sm:inline text-slate-300">•</span>
@@ -105,7 +98,7 @@ export default function StudentProfileCard() {
           <div className="flex items-center gap-3 w-full sm:w-auto self-stretch sm:self-auto justify-end">
             <button
               onClick={() => window.print()}
-              className="px-3.5 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 shadow-xs flex items-center gap-1.5"
+              className="px-3.5 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 shadow-xs flex items-center gap-1.5 transition-colors"
             >
               <Printer className="w-3.5 h-3.5 text-slate-500" />
               <span>Print Profile</span>
@@ -113,7 +106,7 @@ export default function StudentProfileCard() {
 
             <button
               onClick={() => setEditModalOpen(true)}
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-[#0D9488] hover:bg-teal-700 text-white text-xs font-bold shadow-sm hover:shadow transition-all active:scale-[0.98]"
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm shadow-indigo-600/20 transition-all active:scale-[0.98]"
             >
               <Edit3 className="w-3.5 h-3.5" />
               <span>Edit Details</span>
@@ -121,11 +114,10 @@ export default function StudentProfileCard() {
           </div>
         </div>
 
-        {/* Bottom Details Grid: Contact & Academic Telemetry */}
+        {/* Bottom Details Grid */}
         <div className="pt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* Contact 1: Email */}
-          <div className="p-3.5 rounded-2xl bg-white/70 border border-slate-100 flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-teal-50 flex items-center justify-center text-[#0D9488] flex-shrink-0">
+          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-700 flex-shrink-0">
               <Mail className="w-4 h-4" />
             </div>
             <div className="min-w-0">
@@ -136,9 +128,8 @@ export default function StudentProfileCard() {
             </div>
           </div>
 
-          {/* Contact 2: Phone */}
-          <div className="p-3.5 rounded-2xl bg-white/70 border border-slate-100 flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-teal-50 flex items-center justify-center text-[#0D9488] flex-shrink-0">
+          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-700 flex-shrink-0">
               <Phone className="w-4 h-4" />
             </div>
             <div className="min-w-0">
@@ -149,9 +140,8 @@ export default function StudentProfileCard() {
             </div>
           </div>
 
-          {/* Contact 3: Guardian */}
-          <div className="p-3.5 rounded-2xl bg-white/70 border border-slate-100 flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-teal-50 flex items-center justify-center text-[#0D9488] flex-shrink-0">
+          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-700 flex-shrink-0">
               <User className="w-4 h-4" />
             </div>
             <div className="min-w-0">
@@ -162,9 +152,8 @@ export default function StudentProfileCard() {
             </div>
           </div>
 
-          {/* Contact 4: Attendance / Standing */}
-          <div className="p-3.5 rounded-2xl bg-white/70 border border-slate-100 flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-teal-50 flex items-center justify-center text-[#0D9488] flex-shrink-0">
+          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-700 flex-shrink-0">
               <Sparkles className="w-4 h-4" />
             </div>
             <div className="min-w-0">
@@ -175,7 +164,7 @@ export default function StudentProfileCard() {
             </div>
           </div>
         </div>
-      </GlassCard>
+      </div>
 
       {/* Edit Student Modal */}
       <EditStudentModal
