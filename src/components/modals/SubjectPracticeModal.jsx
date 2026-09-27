@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { 
   X, 
-  CheckCircle2, 
   PlayCircle, 
   Clock, 
   Sparkles, 
@@ -10,8 +9,7 @@ import {
   Microscope,
   BookOpenCheck,
   Globe2,
-  Target,
-  Award
+  Target
 } from 'lucide-react';
 import FullScreenDrillModal from '../practice/FullScreenDrillModal';
 
@@ -90,23 +88,23 @@ export default function SubjectPracticeModal({ subject: subjectProp, onClose }) 
 
   return (
     <>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-slate-900/45 backdrop-blur-md animate-in fade-in duration-200">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-slate-900/40 backdrop-blur-md animate-in fade-in duration-200">
         <div 
-          className="relative w-full max-w-4xl max-h-[92vh] flex flex-col rounded-3xl bg-white/95 backdrop-blur-2xl border border-white shadow-2xl overflow-hidden"
+          className="relative w-full max-w-4xl max-h-[92vh] flex flex-col rounded-3xl bg-white backdrop-blur-2xl border border-slate-200 shadow-2xl overflow-hidden"
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Header Strip with Teal accent (Same type as View Syllabus) */}
-          <div className="p-6 sm:p-7 border-b border-teal-100 bg-gradient-to-r from-teal-50/80 via-white to-teal-50/50 flex items-start justify-between">
+          {/* Header Strip with Indigo accent */}
+          <div className="p-6 sm:p-7 border-b border-indigo-100 bg-gradient-to-r from-indigo-50/90 via-white to-purple-50/40 flex items-start justify-between">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#CCFBF1] border border-teal-200/80 flex items-center justify-center text-[#0D9488] shadow-sm flex-shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-100 border border-indigo-200 flex items-center justify-center text-indigo-700 shadow-sm flex-shrink-0">
                 <Icon className="w-6 h-6" strokeWidth={2.2} />
               </div>
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#CCFBF1] text-[#0D9488] border border-teal-200/70">
+                  <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100 text-indigo-700 border border-indigo-200/80">
                     {subject.grade}
                   </span>
-                  <span className="text-xs font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-md border border-teal-100">
+                  <span className="text-xs font-semibold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-100">
                     Practice Zone
                   </span>
                   <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
@@ -116,7 +114,7 @@ export default function SubjectPracticeModal({ subject: subjectProp, onClose }) 
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
                   {subject.title} Practice
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-600 mt-0.5">
+                <p className="text-xs sm:text-sm text-slate-600 mt-0.5 font-medium">
                   Select a chapter to practice step-by-step problem sets and interactive test drills.
                 </p>
               </div>
@@ -124,20 +122,20 @@ export default function SubjectPracticeModal({ subject: subjectProp, onClose }) 
 
             <button
               onClick={onClose}
-              className="p-2 rounded-xl text-slate-400 hover:text-slate-800 hover:bg-white transition-colors"
+              className="p-2 rounded-xl text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-colors"
               aria-label="Close dialog"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          {/* Modal Body: Two columns layout (Same type as View Syllabus) */}
+          {/* Modal Body: Two columns layout */}
           <div className="flex-1 overflow-y-auto grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-100">
             {/* Left Column: Chapters List */}
             <div className="lg:col-span-5 p-5 sm:p-6 space-y-2.5 overflow-y-auto max-h-[480px]">
               <div className="flex items-center justify-between text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
                 <span>Select Chapter ({subject.chapters.length})</span>
-                <span className="text-[#0D9488] font-semibold">Practice Drills</span>
+                <span className="text-indigo-600 font-bold">Practice Drills</span>
               </div>
 
               {subject.chapters.map((chap, idx) => {
@@ -148,32 +146,32 @@ export default function SubjectPracticeModal({ subject: subjectProp, onClose }) 
                     onClick={() => setActiveChapterIndex(idx)}
                     className={`w-full text-left p-3.5 rounded-2xl border transition-all duration-150 flex items-center justify-between ${
                       isSelected
-                        ? 'bg-[#CCFBF1]/40 border-teal-300/80 shadow-xs'
-                        : 'bg-white hover:bg-slate-50 border-slate-100'
+                        ? 'bg-indigo-50/80 border-indigo-200 shadow-sm'
+                        : 'bg-white hover:bg-slate-50 border-slate-200/80'
                     }`}
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       <div className={`w-7 h-7 rounded-xl flex items-center justify-center text-xs font-bold flex-shrink-0 ${
                         isSelected
-                          ? 'bg-[#0D9488] text-white'
+                          ? 'bg-indigo-600 text-white'
                           : 'bg-slate-100 text-slate-600'
                       }`}>
                         0{idx + 1}
                       </div>
                       <div className="min-w-0">
                         <div className={`text-xs sm:text-sm font-semibold truncate ${
-                          isSelected ? 'text-[#0D9488]' : 'text-slate-900'
+                          isSelected ? 'text-indigo-700' : 'text-slate-900'
                         }`}>
                           {chap.title}
                         </div>
-                        <div className="text-[11px] text-slate-500">
+                        <div className="text-[11px] text-slate-500 font-medium">
                           4 Practice Sessions • Fullscreen Drills
                         </div>
                       </div>
                     </div>
 
                     <ChevronRight className={`w-4 h-4 flex-shrink-0 ${
-                      isSelected ? 'text-[#0D9488]' : 'text-slate-400'
+                      isSelected ? 'text-indigo-600' : 'text-slate-400'
                     }`} />
                   </button>
                 );
@@ -185,10 +183,10 @@ export default function SubjectPracticeModal({ subject: subjectProp, onClose }) 
               <div>
                 {/* Chapter Banner */}
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#0D9488]">
+                  <span className="text-xs font-bold uppercase tracking-wider text-indigo-600">
                     Chapter 0{activeChapterIndex + 1} Practice Hub
                   </span>
-                  <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-[#CCFBF1] text-[#0D9488] border border-teal-200">
+                  <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
                     4 Structured Sessions
                   </span>
                 </div>
@@ -196,7 +194,7 @@ export default function SubjectPracticeModal({ subject: subjectProp, onClose }) 
                 <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-1">
                   {currentChapter.title}
                 </h3>
-                <p className="text-xs text-slate-600 mb-5">
+                <p className="text-xs text-slate-600 mb-5 font-medium">
                   Click <strong>Start Drill</strong> on any session to open the full-screen interactive practice test with timers, instant solutions, and navigation.
                 </p>
 
@@ -205,11 +203,11 @@ export default function SubjectPracticeModal({ subject: subjectProp, onClose }) 
                   {practiceSessions.map((session) => (
                     <div
                       key={session.id}
-                      className="p-4 rounded-2xl bg-white border border-slate-200/80 hover:border-teal-300 shadow-xs hover:shadow-sm transition-all duration-150 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                      className="p-4 rounded-2xl bg-white border border-slate-200/90 hover:border-indigo-200 shadow-sm transition-all duration-150 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                     >
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="w-5 h-5 rounded-md bg-[#CCFBF1] text-[#0D9488] font-bold text-[10px] flex items-center justify-center">
+                          <span className="w-5 h-5 rounded-md bg-indigo-100 text-indigo-700 font-bold text-[10px] flex items-center justify-center">
                             S{session.id}
                           </span>
                           <h4 className="text-xs sm:text-sm font-bold text-slate-900 truncate">
@@ -219,17 +217,17 @@ export default function SubjectPracticeModal({ subject: subjectProp, onClose }) 
                             {session.difficulty}
                           </span>
                         </div>
-                        <p className="text-[11px] text-slate-500 line-clamp-1 mb-2">
+                        <p className="text-[11px] text-slate-500 line-clamp-1 mb-2 font-medium">
                           {session.description}
                         </p>
                         <div className="flex items-center gap-3 text-[11px] text-slate-400">
                           <span className="flex items-center gap-1 text-slate-600 font-medium">
-                            <Target className="w-3 h-3 text-[#0D9488]" />
+                            <Target className="w-3 h-3 text-indigo-600" />
                             {session.questionsCount} Questions
                           </span>
                           <span>•</span>
-                          <span className="flex items-center gap-1">
-                            <Clock className="w-3 h-3" />
+                          <span className="flex items-center gap-1 font-medium">
+                            <Clock className="w-3 h-3 text-slate-400" />
                             {session.duration}
                           </span>
                           {session.accuracy && (
@@ -246,7 +244,7 @@ export default function SubjectPracticeModal({ subject: subjectProp, onClose }) 
                       {/* Start Drill Button -> Opens Full Screen Drill */}
                       <button
                         onClick={() => setFullScreenDrill({ session, chapter: currentChapter })}
-                        className="flex-shrink-0 inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl bg-[#0D9488] hover:bg-teal-700 text-white text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-[0.98]"
+                        className="flex-shrink-0 inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-md shadow-indigo-600/20 transition-all active:scale-[0.98]"
                       >
                         <PlayCircle className="w-4 h-4 text-white" />
                         <span>Start Drill</span>
@@ -256,12 +254,12 @@ export default function SubjectPracticeModal({ subject: subjectProp, onClose }) 
                 </div>
 
                 {/* Bottom Helpful Tip */}
-                <div className="p-3.5 rounded-xl bg-[#CCFBF1]/40 border border-teal-200/70 flex items-center justify-between text-xs text-slate-700">
+                <div className="p-3.5 rounded-xl bg-indigo-50/70 border border-indigo-100 flex items-center justify-between text-xs text-slate-700 font-medium">
                   <div className="flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-[#0D9488] flex-shrink-0" />
+                    <Sparkles className="w-4 h-4 text-indigo-600 flex-shrink-0" />
                     <span>Fullscreen drills simulate real school exams with zero distractions.</span>
                   </div>
-                  <span className="text-[11px] font-bold text-[#0D9488]">Exam Standard</span>
+                  <span className="text-[11px] font-bold text-indigo-700">Exam Standard</span>
                 </div>
               </div>
             </div>
