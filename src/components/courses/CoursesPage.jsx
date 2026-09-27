@@ -11,26 +11,12 @@ import SubjectChapterModal from '../modals/SubjectChapterModal';
 import SubjectPracticeModal from '../modals/SubjectPracticeModal';
 
 export default function CoursesPage() {
-  const [selectedFilter, setSelectedFilter] = useState('all');
   const [selectedSubjectModal, setSelectedSubjectModal] = useState(null);
   const [practiceSubjectModal, setPracticeSubjectModal] = useState(null);
-
-  const filterPills = [
-    { id: 'all', label: 'All Subjects' },
-    { id: 'math', label: '🧮 Math' },
-    { id: 'science', label: '🔬 Science' },
-    { id: 'english', label: '📖 English' },
-    { id: 'eng-grm', label: '✍️ English Grammar' },
-    { id: 'hindi', label: '🇮🇳 Hindi' },
-    { id: 'hin-grm', label: '📚 Hindi Grammar' },
-    { id: 'gk', label: '🧠 General Knowledge' },
-    { id: 'sst', label: '🌍 Social Studies' },
-  ];
 
   const courses = [
     {
       id: 'maths-5',
-      filterId: 'math',
       title: 'Mathematics',
       subtitle: '14 Chapters • 48 Lessons',
       progressPercent: 65,
@@ -40,7 +26,6 @@ export default function CoursesPage() {
     },
     {
       id: 'science-5',
-      filterId: 'science',
       title: 'Science & Environment',
       subtitle: '12 Chapters • 42 Lessons',
       progressPercent: 60,
@@ -50,7 +35,6 @@ export default function CoursesPage() {
     },
     {
       id: 'english-5',
-      filterId: 'english',
       title: 'English Literature',
       subtitle: '10 Chapters • 38 Lessons',
       progressPercent: 25,
@@ -60,7 +44,6 @@ export default function CoursesPage() {
     },
     {
       id: 'english-grammar-5',
-      filterId: 'eng-grm',
       title: 'English Grammar',
       subtitle: '12 Chapters • 44 Lessons',
       progressPercent: 50,
@@ -70,7 +53,6 @@ export default function CoursesPage() {
     },
     {
       id: 'hindi-literature-5',
-      filterId: 'hindi',
       title: 'Hindi (हिंदी साहित्य)',
       subtitle: '14 पाठ • 40 पाठ्य सामग्री',
       progressPercent: 35,
@@ -80,7 +62,6 @@ export default function CoursesPage() {
     },
     {
       id: 'hindi-grammar-5',
-      filterId: 'hin-grm',
       title: 'Hindi Grammar (व्याकरण)',
       subtitle: '12 अध्याय • 36 पाठ्य सामग्री',
       progressPercent: 40,
@@ -90,7 +71,6 @@ export default function CoursesPage() {
     },
     {
       id: 'general-knowledge-5',
-      filterId: 'gk',
       title: 'General Knowledge (GK)',
       subtitle: '15 Chapters • 50 Quizzes',
       progressPercent: 55,
@@ -100,7 +80,6 @@ export default function CoursesPage() {
     },
     {
       id: 'sst-5',
-      filterId: 'sst',
       title: 'Social Studies & Civics',
       subtitle: '10 Chapters • 36 Lessons',
       progressPercent: 30,
@@ -109,10 +88,6 @@ export default function CoursesPage() {
       progressColor: 'bg-purple-600',
     }
   ];
-
-  const filteredCourses = selectedFilter === 'all' 
-    ? courses 
-    : courses.filter(c => c.filterId === selectedFilter);
 
   return (
     <div className="p-6 sm:p-8 max-w-6xl mx-auto flex flex-col gap-6">
@@ -126,36 +101,16 @@ export default function CoursesPage() {
         </p>
       </div>
 
-      {/* Subject Filter Pills with Scrollbar */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2">
-        {filterPills.map((pill) => {
-          const isActive = selectedFilter === pill.id;
-          return (
-            <button
-              key={pill.id}
-              onClick={() => setSelectedFilter(pill.id)}
-              className={`px-4 py-2 rounded-full text-xs font-semibold transition-all shrink-0 ${
-                isActive 
-                  ? 'bg-indigo-600 text-white shadow-sm' 
-                  : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
-              }`}
-            >
-              {pill.label}
-            </button>
-          );
-        })}
-      </div>
-
       {/* Course Cards Grid */}
       <div className="flex flex-col gap-3 mt-1">
         <div className="flex items-center justify-between">
           <h3 className="text-base font-bold text-slate-900">
-            Available Subjects ({filteredCourses.length})
+            Available Subjects ({courses.length})
           </h3>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {filteredCourses.map((course) => {
+          {courses.map((course) => {
             const Icon = course.icon;
             return (
               <div 
