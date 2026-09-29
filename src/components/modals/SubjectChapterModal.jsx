@@ -212,8 +212,8 @@ export default function SubjectChapterModal({ subjectId, subject: subjectProp, o
                   }}
                   className="w-full sm:flex-1 flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold shadow-md shadow-indigo-600/20 transition-all active:scale-[0.98]"
                 >
-                  <PlayCircle className="w-4 h-4" />
-                  <span>Start Chapter Lessons</span>
+                  <PlayCircle className="w-4 h-4 text-white" />
+                  <span>Start Chapter Quiz</span>
                 </button>
 
                 <button
