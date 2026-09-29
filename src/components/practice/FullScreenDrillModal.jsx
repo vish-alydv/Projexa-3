@@ -3,18 +3,13 @@ import {
   X, 
   ArrowLeft, 
   ArrowRight, 
-  CheckCircle2, 
   Clock, 
   Award, 
   RotateCcw, 
   HelpCircle, 
   Flag, 
-  Bookmark, 
   Check, 
-  ChevronRight,
-  Sparkles,
-  AlertCircle,
-  BarChart2
+  ChevronRight
 } from 'lucide-react';
 
 const SUBJECT_DRILL_BANKS = {
@@ -50,14 +45,6 @@ const SUBJECT_DRILL_BANKS = {
       correct: 0,
       hint: "Multiply numerator and denominator by the same integer",
       explanation: "3/5 × 2/2 = 6/10."
-    },
-    {
-      id: 5,
-      question: "A train leaves at 09:35 AM and arrives at its destination at 01:20 PM. What is the total travel duration?",
-      options: ["3 hours 45 minutes", "4 hours 15 minutes", "3 hours 15 minutes", "4 hours 45 minutes"],
-      correct: 0,
-      hint: "From 09:35 to 12:00 is 2h 25m, plus 1h 20m",
-      explanation: "09:35 to 12:35 is 3h. 12:35 to 01:20 is 45m. Total duration is 3 hours 45 minutes."
     }
   ],
   "science-5": [
@@ -71,14 +58,6 @@ const SUBJECT_DRILL_BANKS = {
     },
     {
       id: 2,
-      question: "Seeds of cocklebur and burdock have hooks and spines. How do they disperse?",
-      options: ["By wind currents", "By clinging to animal fur and clothes", "By bursting open automatically", "By floating on water"],
-      correct: 1,
-      hint: "Think about how burrs stick to dog fur or your socks during a walk in the fields.",
-      explanation: "Their hook-like bristles cling tightly to passing animals or clothing to travel far away."
-    },
-    {
-      id: 3,
       question: "Which part of the human skeletal system specifically protects the heart and lungs?",
       options: ["The Skull", "The Ribcage", "The Backbone (Spine)", "The Pelvis"],
       correct: 1,
@@ -86,46 +65,35 @@ const SUBJECT_DRILL_BANKS = {
       explanation: "The 12 pairs of ribs form a protective cage around the vital heart and lung tissues."
     },
     {
-      id: 4,
-      question: "Which planet in our solar system is famously known as the 'Red Planet' due to iron oxide on its surface?",
+      id: 3,
+      question: "Which planet in our solar system is famously known as the 'Red Planet'?",
       options: ["Venus", "Jupiter", "Mars", "Mercury"],
       correct: 2,
       hint: "It is the 4th planet from the Sun.",
-      explanation: "Mars is called the Red Planet because reddish iron minerals coat its rocky soil."
-    },
-    {
-      id: 5,
-      question: "Which deficiency disease is caused by lack of Vitamin D in a growing child's diet?",
-      options: ["Scurvy", "Rickets", "Beriberi", "Goitre"],
-      correct: 1,
-      hint: "It leads to weak, soft, and bent leg bones.",
-      explanation: "Lack of Vitamin D leads to poor calcium absorption, causing Rickets in children."
+      explanation: "Mars is called the Red Planet because reddish iron minerals coat its soil."
     }
   ],
   "english-5": [
     {
       id: 1,
-      question: "Select the sentence where the apostrophe is used correctly to show possession:",
-      options: [
-        "The boys' coats were hung in the classroom.",
-        "The boy's coats' were hung in the classroom.",
-        "The boys coats were hung in the classroom.",
-        "The boy's coats were hung in the classroom's."
-      ],
-      correct: 0,
-      hint: "Plural nouns ending in -s take an apostrophe at the very end.",
-      explanation: "For plural boys possessing coats, the apostrophe goes after the s: boys'."
+      question: "Select the correct antonym for the word 'ANCIENT':",
+      options: ["Historic", "Antique", "Modern", "Elderly"],
+      correct: 2,
+      hint: "The opposite of very old in historical time.",
+      explanation: "'Modern' represents contemporary times, the opposite of ancient."
     },
     {
       id: 2,
-      question: "Identify the abstract noun in: 'Her kindness brought immense joy to the whole family.'",
-      options: ["family", "kindness & joy", "brought", "whole"],
+      question: "What does the idiom 'once in a blue moon' mean?",
+      options: ["Very frequently", "Something that happens very rarely", "During night time only", "When the sky is blue"],
       correct: 1,
-      hint: "Abstract nouns name emotions, virtues, or qualities that cannot be physically touched.",
-      explanation: "'Kindness' (quality) and 'joy' (emotion) are abstract nouns."
-    },
+      hint: "A blue moon is an uncommon astronomical event.",
+      explanation: "'Once in a blue moon' means something that happens very rarely."
+    }
+  ],
+  "english-grammar-5": [
     {
-      id: 3,
+      id: 1,
       question: "Choose the correct past continuous verb: 'The birds _____ cheerfully across the meadow.'",
       options: ["was singing", "were singing", "singed", "are singing"],
       correct: 1,
@@ -133,78 +101,100 @@ const SUBJECT_DRILL_BANKS = {
       explanation: "Plural subject takes 'were' + present participle: 'were singing'."
     },
     {
-      id: 4,
-      question: "What does the idiom 'once in a blue moon' mean?",
-      options: ["Very frequently", "Something that happens very rarely", "During night time only", "When the sky is completely clear"],
+      id: 2,
+      question: "Identify the abstract noun in: 'Her kindness brought immense joy to the whole family.'",
+      options: ["family", "kindness & joy", "brought", "whole"],
       correct: 1,
-      hint: "A blue moon is an uncommon astronomical event.",
-      explanation: "'Once in a blue moon' is a figure of speech meaning very rarely."
+      hint: "Abstract nouns name emotions or virtues.",
+      explanation: "'Kindness' (quality) and 'joy' (emotion) are abstract nouns."
+    }
+  ],
+  "hindi-literature-5": [
+    {
+      id: 1,
+      question: "तिब्बती लोककथा 'राख की रस्सी' में मंत्री के बेटे की समस्या का समाधान किसने किया?",
+      options: ["राजा ने", "एक समझदार लड़की ने", "पड़ोसी ने", "सिपाही ने"],
+      correct: 1,
+      hint: "मंत्री का बेटा चतुर लड़की के पास सहायता मांगने गया था।",
+      explanation: "एक बुद्धिमान लड़की ने राख की रस्सी बनाकर मंत्री के बेटे की मुश्किल हल की।"
     },
     {
-      id: 5,
-      question: "Select the correct antonym for the word 'ANCIENT':",
-      options: ["Historic", "Antique", "Modern", "Elderly"],
-      correct: 2,
-      hint: "The opposite of very old in historical time.",
-      explanation: "'Modern' represents contemporary times, the opposite of ancient."
+      id: 2,
+      question: "कविता 'खिलौनेवाला' की प्रसिद्ध रचयिता कौन हैं?",
+      options: ["महादेवी वर्मा", "सुभद्रा कुमारी चौहान", "सरोजिनी नायडू", "अमृता प्रीतम"],
+      correct: 1,
+      hint: "इन्होंने 'झाँसी की रानी' प्रसिद्ध कविता भी लिखी है।",
+      explanation: "'खिलौनेवाला' कविता सुभद्रा कुमारी चौहान द्वारा रचित है।"
+    }
+  ],
+  "hindi-grammar-5": [
+    {
+      id: 1,
+      question: "हिन्दी भाषा की लिपि कौन-सी है?",
+      options: ["रोमन", "देवनागरी", "गुरमुखी", "फ़ारसी"],
+      correct: 1,
+      hint: "संस्कृत और मराठी भाषा भी इसी लिपि में लिखी जाती हैं।",
+      explanation: "हिन्दी भाषा देवनागरी लिपि में लिखी जाती है।"
+    },
+    {
+      id: 2,
+      question: "निम्न में से कौन-सा शब्द 'भाववाचक संज्ञा' का उदाहरण है?",
+      options: ["मिठास", "राम", "हिमालय", "पुस्तक"],
+      correct: 0,
+      hint: "जिसे देखा या छुआ न जा सके, केवल महसूस किया जा सके।",
+      explanation: "'मिठास' एक गुण का नाम है, जो भाववाचक संज्ञा है।"
+    }
+  ],
+  "general-knowledge-5": [
+    {
+      id: 1,
+      question: "Which is the national aquatic animal of India?",
+      options: ["Gangetic River Dolphin", "Blue Whale", "Great White Shark", "Sea Turtle"],
+      correct: 0,
+      hint: "It lives in the sacred Ganga river.",
+      explanation: "The Gangetic River Dolphin is official national aquatic animal of India."
+    },
+    {
+      id: 2,
+      question: "Who is known as the 'Father of Indian Space Program'?",
+      options: ["Dr. Homi Bhabha", "Dr. Vikram Sarabhai", "Dr. APJ Abdul Kalam", "Satish Dhawan"],
+      correct: 1,
+      hint: "ISRO owes its early founding vision to him.",
+      explanation: "Dr. Vikram Sarabhai pioneered space research in India."
     }
   ],
   "sst-5": [
     {
       id: 1,
-      question: "Which continent is the largest by both geographical land area and human population?",
+      question: "Which continent is the largest by both land area and human population?",
       options: ["Africa", "North America", "Asia", "Europe"],
       correct: 2,
-      hint: "It contains countries like India, China, and Japan.",
-      explanation: "Asia covers about 30% of Earth's land area and holds 60% of world population."
+      hint: "It contains countries like India and China.",
+      explanation: "Asia covers 30% of Earth's land area and holds 60% of population."
     },
     {
       id: 2,
-      question: "The imaginary horizontal line running around the center of the Earth at 0° latitude is the:",
-      options: ["Prime Meridian", "Equator", "Tropic of Cancer", "Antarctic Circle"],
-      correct: 1,
-      hint: "It divides the Earth into Northern and Southern hemispheres.",
-      explanation: "The Equator is the 0° line of latitude."
-    },
-    {
-      id: 3,
-      question: "On a geographical map, what color is universally used to depict mountain ranges and highland plateaus?",
-      options: ["Blue", "Green", "Brown", "Yellow"],
-      correct: 2,
-      hint: "Blue is for water, green is for lowlands, brown is for highlands.",
-      explanation: "Standard cartographic conventions use shades of brown for mountains and hills."
-    },
-    {
-      id: 4,
-      question: "In which year did the Constitution of India formally come into force, celebrated as Republic Day?",
+      question: "In which year did the Constitution of India come into force?",
       options: ["1947", "1950", "1952", "1948"],
       correct: 1,
-      hint: "Celebrated on 26th January every year.",
-      explanation: "The Constitution came into legal effect on January 26, 1950."
-    },
-    {
-      id: 5,
-      question: "Which of the following is NOT one of the three principal organs of the Indian government?",
-      options: ["Legislature", "Executive", "Judiciary", "Commercial Banks"],
-      correct: 3,
-      hint: "The 3 democratic organs make laws, execute laws, and interpret laws.",
-      explanation: "The 3 branches are Legislature, Executive, and Judiciary. Commercial banks are financial institutions."
+      hint: "Celebrated on 26th January as Republic Day.",
+      explanation: "The Constitution came into effect on January 26, 1950."
     }
   ]
 };
 
-export default function FullScreenDrillModal({ subject, chapter, session, onClose }) {
+export default function FullScreenDrillModal({ subject, chapter, session, drillTitle, questions: customQuestions, onClose }) {
   const [currentQIndex, setCurrentQIndex] = useState(0);
-  const [userAnswers, setUserAnswers] = useState({}); // { [qId]: optionIndex }
+  const [userAnswers, setUserAnswers] = useState({});
   const [markedForReview, setMarkedForReview] = useState({});
   const [showHint, setShowHint] = useState(false);
-  const [secondsLeft, setSecondsLeft] = useState(600); // 10 minutes timer
+  const [secondsLeft, setSecondsLeft] = useState(600);
   const [isFinished, setIsFinished] = useState(false);
 
-  const questions = SUBJECT_DRILL_BANKS[subject?.id] || SUBJECT_DRILL_BANKS["maths-5"];
+  const defaultQuestions = SUBJECT_DRILL_BANKS[subject?.id] || SUBJECT_DRILL_BANKS["maths-5"];
+  const questions = customQuestions || defaultQuestions;
   const currentQ = questions[currentQIndex] || questions[0];
 
-  // Timer countdown
   useEffect(() => {
     if (isFinished) return;
     const timer = setInterval(() => {
@@ -229,7 +219,7 @@ export default function FullScreenDrillModal({ subject, chapter, session, onClos
   const handleSelectOption = (optIdx) => {
     setUserAnswers((prev) => ({
       ...prev,
-      [currentQ.id]: optIdx
+      [currentQ.id || currentQIndex]: optIdx
     }));
   };
 
@@ -249,25 +239,12 @@ export default function FullScreenDrillModal({ subject, chapter, session, onClos
     }
   };
 
-  const handleClearAnswer = () => {
-    setUserAnswers((prev) => {
-      const copy = { ...prev };
-      delete copy[currentQ.id];
-      return copy;
-    });
-  };
-
-  const handleToggleReview = () => {
-    setMarkedForReview((prev) => ({
-      ...prev,
-      [currentQ.id]: !prev[currentQ.id]
-    }));
-  };
-
   // Calculate score
   let correctCount = 0;
-  questions.forEach((q) => {
-    if (userAnswers[q.id] === q.correct) {
+  questions.forEach((q, idx) => {
+    const qKey = q.id || idx;
+    const correctIdx = q.correct !== undefined ? q.correct : q.correctOptionIndex;
+    if (userAnswers[qKey] === correctIdx) {
       correctCount += 1;
     }
   });
@@ -275,16 +252,9 @@ export default function FullScreenDrillModal({ subject, chapter, session, onClos
   const accuracyPercent = Math.round((correctCount / questions.length) * 100);
 
   return (
-    <div className="fixed inset-0 z-[100] bg-[#F6F8FC] flex flex-col overflow-hidden animate-in fade-in duration-200">
-      {/* Background Soft Lighting - Educational Teal */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] pointer-events-none -z-10">
-        <div className="absolute top-6 left-1/4 w-[500px] h-[500px] bg-[#CCFBF1]/70 rounded-full blur-[120px]" />
-        <div className="absolute top-20 right-1/4 w-[450px] h-[450px] bg-teal-200/40 rounded-full blur-[140px]" />
-      </div>
-
+    <div className="fixed inset-0 z-[100] bg-[#F4F6FB] flex flex-col overflow-hidden animate-in fade-in duration-200">
       {/* TOP HEADER BAR */}
-      <header className="h-16 px-4 sm:px-8 border-b border-teal-100/90 bg-white/85 backdrop-blur-xl flex items-center justify-between shadow-xs">
-        {/* Left: Back/Exit & Title */}
+      <header className="h-16 px-4 sm:px-8 border-b border-indigo-100 bg-white flex items-center justify-between shadow-xs">
         <div className="flex items-center gap-3">
           <button
             onClick={onClose}
@@ -295,104 +265,105 @@ export default function FullScreenDrillModal({ subject, chapter, session, onClos
           </button>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-[#0D9488] uppercase tracking-wider">
-                {subject?.title}
+              <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">
+                {drillTitle || subject?.title || "Class 5th Quiz"}
               </span>
-              <span className="text-slate-300">•</span>
-              <span className="text-xs font-semibold text-slate-700">
-                {chapter?.title}
-              </span>
+              {chapter && (
+                <>
+                  <span className="text-slate-300">•</span>
+                  <span className="text-xs font-semibold text-slate-700">{chapter.title}</span>
+                </>
+              )}
             </div>
             <div className="text-sm font-bold text-slate-900">
-              {session?.title || "Practice Drill"}
+              {session?.title || "Interactive Drill"}
             </div>
           </div>
         </div>
 
-        {/* Center: Live Timer */}
-        <div className="hidden sm:flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#CCFBF1] border border-teal-200 text-[#0D9488] font-mono text-sm font-bold shadow-xs">
-          <Clock className="w-4 h-4" />
+        {/* Live Timer */}
+        <div className="hidden sm:flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 font-mono text-sm font-bold shadow-xs">
+          <Clock className="w-4 h-4 text-indigo-600" />
           <span>{formatTime(secondsLeft)}</span>
         </div>
 
-        {/* Right: Progress Pill & End Drill Button */}
+        {/* Right Actions */}
         <div className="flex items-center gap-3">
           <div className="text-xs font-semibold text-slate-600 hidden sm:block">
             Answered: <strong className="text-slate-900">{Object.keys(userAnswers).length}/{questions.length}</strong>
           </div>
           <button
             onClick={() => setIsFinished(true)}
-            className="px-4 py-1.5 rounded-xl border border-teal-200 bg-white hover:bg-teal-50 text-xs font-bold text-[#0D9488] transition-colors"
+            className="px-4 py-1.5 rounded-xl border border-indigo-200 bg-indigo-50 hover:bg-indigo-100 text-xs font-bold text-indigo-700 transition-colors"
           >
             Finish Drill
           </button>
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-800 hover:bg-slate-100"
-            aria-label="Close"
-          >
+          <button onClick={onClose} className="p-1.5 rounded-xl text-slate-400 hover:text-slate-800 hover:bg-slate-100">
             <X className="w-5 h-5" />
           </button>
         </div>
       </header>
 
       {/* MAIN BODY */}
-      <div className="flex-1 overflow-y-auto px-4 sm:px-8 py-8 flex flex-col justify-between max-w-4xl mx-auto w-full">
+      <div className="flex-1 overflow-y-auto px-4 sm:px-8 py-6 flex flex-col justify-between max-w-3xl mx-auto w-full">
         {isFinished ? (
           /* RESULT SUMMARY SCREEN */
           <div className="my-auto py-8 text-center animate-in zoom-in-95 duration-200">
-            <div className="w-20 h-20 rounded-3xl bg-[#CCFBF1] border border-teal-200 flex items-center justify-center text-[#0D9488] mx-auto mb-5 shadow-sm">
-              <Award className="w-10 h-10" />
+            <div className="w-16 h-16 rounded-2xl bg-indigo-100 border border-indigo-200 flex items-center justify-center text-indigo-700 mx-auto mb-4 shadow-sm">
+              <Award className="w-8 h-8" />
             </div>
 
-            <span className="text-xs font-bold uppercase tracking-wider text-[#0D9488] bg-[#CCFBF1] px-3 py-1 rounded-full border border-teal-200">
+            <span className="text-xs font-bold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200">
               Drill Completed
             </span>
 
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-4 mb-2">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3 mb-2">
               Great Effort, Junior Scholar!
             </h2>
-            <p className="text-sm text-slate-600 max-w-md mx-auto mb-8">
-              Here is your performance breakdown for <strong>{chapter?.title}</strong>. Review your solutions below.
+            <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto mb-6 font-medium">
+              Here is your score breakdown for <strong>{drillTitle || chapter?.title || "Interactive Drill"}</strong>.
             </p>
 
             {/* Scorecard Grid */}
-            <div className="grid grid-cols-3 gap-4 max-w-md mx-auto mb-10">
-              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs">
-                <div className="text-xs text-slate-500 font-medium">Score</div>
-                <div className="text-2xl font-bold text-slate-900 mt-1">
+            <div className="grid grid-cols-3 gap-4 max-w-md mx-auto mb-8">
+              <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-sm">
+                <div className="text-xs text-slate-400 font-bold uppercase">Score</div>
+                <div className="text-2xl font-extrabold text-slate-900 mt-1">
                   {correctCount} / {questions.length}
                 </div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs">
-                <div className="text-xs text-slate-500 font-medium">Accuracy</div>
-                <div className="text-2xl font-bold text-[#0D9488] mt-1">
+              <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-sm">
+                <div className="text-xs text-slate-400 font-bold uppercase">Accuracy</div>
+                <div className="text-2xl font-extrabold text-indigo-600 mt-1">
                   {accuracyPercent}%
                 </div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs">
-                <div className="text-xs text-slate-500 font-medium">Time Used</div>
-                <div className="text-2xl font-bold text-slate-900 mt-1">
+              <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-sm">
+                <div className="text-xs text-slate-400 font-bold uppercase">Time Spent</div>
+                <div className="text-2xl font-extrabold text-slate-900 mt-1">
                   {formatTime(600 - secondsLeft)}
                 </div>
               </div>
             </div>
 
             {/* Question by question answers review */}
-            <div className="text-left max-w-2xl mx-auto space-y-4 mb-10">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-700 mb-2">
-                Detailed Solutions & Explanations:
+            <div className="text-left max-w-2xl mx-auto space-y-3.5 mb-8">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+                Detailed Answers & Explanations:
               </h3>
               {questions.map((q, idx) => {
-                const ans = userAnswers[q.id];
-                const isCorrect = ans === q.correct;
+                const qKey = q.id || idx;
+                const ans = userAnswers[qKey];
+                const correctIdx = q.correct !== undefined ? q.correct : q.correctOptionIndex;
+                const isCorrect = ans === correctIdx;
                 const answered = ans !== undefined;
+                const opts = q.options || [];
 
                 return (
                   <div
-                    key={q.id}
+                    key={idx}
                     className={`p-4 rounded-2xl border transition-all ${
                       isCorrect
                         ? 'bg-emerald-50/70 border-emerald-200'
@@ -401,9 +372,9 @@ export default function FullScreenDrillModal({ subject, chapter, session, onClos
                         : 'bg-slate-50 border-slate-200'
                     }`}
                   >
-                    <div className="flex items-start justify-between gap-3 mb-2">
+                    <div className="flex items-start justify-between gap-3 mb-1.5">
                       <span className="text-xs font-bold text-slate-800">
-                        Q{idx + 1}. {q.question}
+                        Q{idx + 1}. {q.question || q.questionText}
                       </span>
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${
                         isCorrect
@@ -416,19 +387,21 @@ export default function FullScreenDrillModal({ subject, chapter, session, onClos
                       </span>
                     </div>
 
-                    <div className="text-xs text-slate-600 mt-1">
-                      <span className="font-semibold text-slate-700">Correct Answer:</span> {q.options[q.correct]}
+                    <div className="text-xs text-slate-600 mt-1 font-medium">
+                      <span className="font-bold text-slate-700">Correct Answer:</span> {opts[correctIdx]}
                     </div>
-                    <div className="text-xs text-slate-600 mt-0.5">
-                      <span className="font-semibold text-slate-700">Explanation:</span> {q.explanation}
-                    </div>
+                    {q.explanation && (
+                      <div className="text-xs text-slate-500 mt-0.5 font-medium">
+                        <span className="font-bold text-slate-700">Explanation:</span> {q.explanation}
+                      </div>
+                    )}
                   </div>
                 );
               })}
             </div>
 
             {/* Bottom Actions */}
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex items-center justify-center gap-3">
               <button
                 onClick={() => {
                   setUserAnswers({});
@@ -437,89 +410,83 @@ export default function FullScreenDrillModal({ subject, chapter, session, onClos
                   setSecondsLeft(600);
                   setIsFinished(false);
                 }}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs sm:text-sm font-semibold text-slate-700 shadow-xs"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 shadow-xs"
               >
                 <RotateCcw className="w-4 h-4" />
-                <span>Retake Drill</span>
+                <span>Retake Quiz</span>
               </button>
 
               <button
                 onClick={onClose}
-                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-[#0D9488] hover:bg-teal-700 text-white text-xs sm:text-sm font-semibold shadow-md shadow-teal-700/20"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold shadow-md shadow-indigo-600/20 active:scale-95 transition-all"
               >
-                <span>Return to Practice Hub</span>
+                <span>Back to Dashboard</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
           </div>
         ) : (
-          /* ACTIVE QUESTION FULL SCREEN VIEW */
-          <div className="flex flex-col justify-between flex-1 py-4">
+          /* ACTIVE QUESTION VIEW */
+          <div className="flex flex-col justify-between flex-1 py-2">
             <div>
               {/* Question Tracker & Tag */}
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
-                  <span className="px-3 py-1 rounded-lg bg-[#CCFBF1] text-[#0D9488] font-bold text-xs">
+                  <span className="px-3 py-1 rounded-lg bg-indigo-100 text-indigo-700 font-bold text-xs">
                     Question {currentQIndex + 1} of {questions.length}
                   </span>
-                  <span className="text-xs font-semibold text-slate-500">
+                  <span className="text-xs font-semibold text-slate-400">
                     Single Choice
                   </span>
                 </div>
-
-                {markedForReview[currentQ.id] && (
-                  <span className="flex items-center gap-1 text-xs font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-full">
-                    <Flag className="w-3 h-3 fill-amber-500 text-amber-500" />
-                    <span>Marked for review</span>
-                  </span>
-                )}
               </div>
 
               {/* Progress Bar */}
-              <div className="w-full h-1.5 bg-slate-200/80 rounded-full overflow-hidden mb-8">
+              <div className="w-full h-2 bg-slate-200/80 rounded-full overflow-hidden mb-6">
                 <div
-                  className="h-full bg-[#0D9488] rounded-full transition-all duration-300"
+                  className="h-full bg-indigo-600 rounded-full transition-all duration-300"
                   style={{ width: `${((currentQIndex + 1) / questions.length) * 100}%` }}
                 />
               </div>
 
-              {/* Large Question Text */}
-              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 leading-snug mb-8">
-                {currentQ.question}
+              {/* Question Text */}
+              <h2 className="text-lg sm:text-xl font-extrabold text-slate-900 leading-snug mb-6">
+                {currentQ.question || currentQ.questionText}
               </h2>
 
-              {/* Options List with Premium Glass styling */}
-              <div className="space-y-3.5 mb-6">
-                {currentQ.options.map((option, idx) => {
-                  const isSelected = userAnswers[currentQ.id] === idx;
+              {/* Options List */}
+              <div className="space-y-3 mb-6">
+                {(currentQ.options || []).map((option, idx) => {
+                  const qKey = currentQ.id || currentQIndex;
+                  const isSelected = userAnswers[qKey] === idx;
 
                   return (
                     <button
                       key={idx}
                       onClick={() => handleSelectOption(idx)}
-                      className={`w-full text-left p-4 sm:p-5 rounded-2xl border transition-all duration-150 flex items-center justify-between group ${
+                      className={`w-full text-left p-4 rounded-2xl border transition-all duration-150 flex items-center justify-between group ${
                         isSelected
-                          ? 'bg-[#CCFBF1]/60 border-[#0D9488] shadow-sm text-[#0D9488] ring-1 ring-[#0D9488]'
-                          : 'bg-white/90 hover:bg-white border-slate-200/90 text-slate-800 shadow-xs hover:border-teal-300'
+                          ? 'bg-indigo-50 border-indigo-600 shadow-sm text-indigo-900 ring-1 ring-indigo-600 font-bold'
+                          : 'bg-white hover:bg-slate-50 border-slate-200/90 text-slate-800'
                       }`}
                     >
-                      <div className="flex items-center gap-3.5">
-                        <span className={`w-8 h-8 rounded-xl text-xs font-bold flex items-center justify-center transition-colors ${
+                      <div className="flex items-center gap-3">
+                        <span className={`w-7 h-7 rounded-xl text-xs font-bold flex items-center justify-center transition-colors ${
                           isSelected
-                            ? 'bg-[#0D9488] text-white'
-                            : 'bg-slate-100 group-hover:bg-teal-50 text-slate-700 group-hover:text-[#0D9488]'
+                            ? 'bg-indigo-600 text-white'
+                            : 'bg-slate-100 group-hover:bg-indigo-100 text-slate-700 group-hover:text-indigo-700'
                         }`}>
                           {String.fromCharCode(65 + idx)}
                         </span>
-                        <span className="text-sm sm:text-base font-medium">
+                        <span className="text-xs sm:text-sm font-semibold">
                           {option}
                         </span>
                       </div>
 
                       <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
                         isSelected
-                          ? 'border-[#0D9488] bg-[#0D9488] text-white'
-                          : 'border-slate-300 group-hover:border-teal-400'
+                          ? 'border-indigo-600 bg-indigo-600 text-white'
+                          : 'border-slate-300 group-hover:border-indigo-400'
                       }`}>
                         {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
                       </div>
@@ -529,102 +496,46 @@ export default function FullScreenDrillModal({ subject, chapter, session, onClos
               </div>
 
               {/* Expandable Hint helper */}
-              <div className="mt-4">
-                <button
-                  onClick={() => setShowHint(!showHint)}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-[#0D9488] transition-colors"
-                >
-                  <HelpCircle className="w-4 h-4" />
-                  <span>{showHint ? "Hide Hint" : "Need a Hint?"}</span>
-                </button>
-                {showHint && (
-                  <div className="mt-2 p-3.5 rounded-xl bg-amber-50/80 border border-amber-200 text-xs text-amber-900 animate-in fade-in">
-                    <strong>💡 Hint:</strong> {currentQ.hint}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Quick Question Jump Strip */}
-            <div className="pt-8 mt-8 border-t border-slate-200/70">
-              <div className="flex items-center justify-between gap-4 mb-4">
-                <div className="flex items-center gap-2">
+              {currentQ.hint && (
+                <div className="mt-2">
                   <button
-                    onClick={handleToggleReview}
-                    className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border transition-colors ${
-                      markedForReview[currentQ.id]
-                        ? 'bg-amber-100 border-amber-300 text-amber-800'
-                        : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
-                    }`}
+                    onClick={() => setShowHint(!showHint)}
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-indigo-600 transition-colors"
                   >
-                    <Flag className="w-3.5 h-3.5" />
-                    <span>{markedForReview[currentQ.id] ? "Marked" : "Review Later"}</span>
+                    <HelpCircle className="w-4 h-4" />
+                    <span>{showHint ? "Hide Hint" : "Need a Hint?"}</span>
                   </button>
-
-                  {userAnswers[currentQ.id] !== undefined && (
-                    <button
-                      onClick={handleClearAnswer}
-                      className="px-3 py-2 rounded-xl text-xs font-semibold text-slate-500 hover:text-rose-600 transition-colors"
-                    >
-                      Clear Selection
-                    </button>
+                  {showHint && (
+                    <div className="mt-2 p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 animate-in fade-in font-medium">
+                      <strong>💡 Hint:</strong> {currentQ.hint}
+                    </div>
                   )}
                 </div>
+              )}
+            </div>
 
-                {/* Question Numbers Pills */}
-                <div className="flex items-center gap-1.5 overflow-x-auto py-1">
-                  {questions.map((q, idx) => {
-                    const isAnswered = userAnswers[q.id] !== undefined;
-                    const isCurrent = idx === currentQIndex;
-                    const isMarked = markedForReview[q.id];
+            {/* Bottom Actions Bar */}
+            <div className="pt-6 border-t border-slate-200 flex items-center justify-between">
+              <button
+                disabled={currentQIndex === 0}
+                onClick={handlePrev}
+                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all ${
+                  currentQIndex > 0
+                    ? 'bg-white hover:bg-slate-50 text-slate-700 border border-slate-200'
+                    : 'opacity-40 text-slate-400 cursor-not-allowed border border-transparent'
+                }`}
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>Previous</span>
+              </button>
 
-                    return (
-                      <button
-                        key={q.id}
-                        onClick={() => {
-                          setShowHint(false);
-                          setCurrentQIndex(idx);
-                        }}
-                        className={`w-7 h-7 rounded-lg text-xs font-bold transition-all ${
-                          isCurrent
-                            ? 'ring-2 ring-[#0D9488] bg-white text-[#0D9488] shadow-sm'
-                            : isAnswered
-                            ? 'bg-[#0D9488] text-white'
-                            : isMarked
-                            ? 'bg-amber-400 text-white'
-                            : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-                        }`}
-                      >
-                        {idx + 1}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Prev and Next Action Buttons */}
-              <div className="flex items-center justify-between pt-2">
-                <button
-                  disabled={currentQIndex === 0}
-                  onClick={handlePrev}
-                  className={`inline-flex items-center gap-2 px-5 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
-                    currentQIndex > 0
-                      ? 'bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 shadow-xs'
-                      : 'opacity-40 text-slate-400 cursor-not-allowed border border-transparent'
-                  }`}
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                  <span>Previous</span>
-                </button>
-
-                <button
-                  onClick={handleNext}
-                  className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-[#0D9488] hover:bg-teal-700 text-white text-xs sm:text-sm font-bold shadow-md shadow-teal-700/20 hover:shadow-lg transition-all active:scale-[0.98]"
-                >
-                  <span>{currentQIndex + 1 < questions.length ? "Next Question" : "Submit Drill"}</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
+              <button
+                onClick={handleNext}
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-bold shadow-md shadow-indigo-600/20 active:scale-95 transition-all"
+              >
+                <span>{currentQIndex + 1 < questions.length ? "Next Question" : "Submit Drill"}</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
             </div>
           </div>
         )}
