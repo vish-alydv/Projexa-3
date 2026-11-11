@@ -11,16 +11,21 @@ import {
   HelpCircle,
   Maximize2,
   Minimize2,
-  Check
+  Check,
+  Bot
 } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 
 export default function InteractiveLessonModal({ chapter, subjectTitle, onClose }) {
+  const { currentUser, addXP } = useAuth();
   const [currentQIndex, setCurrentQIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const [userAnswers, setUserAnswers] = useState({});
   const [isCompleted, setIsCompleted] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [aiExplanation, setAiExplanation] = useState(null);
+  const [isAiLoading, setIsAiLoading] = useState(false);
 
   useEffect(() => {
     const handleFsChange = () => {
@@ -442,19 +447,75 @@ export default function InteractiveLessonModal({ chapter, subjectTitle, onClose 
     if (showFeedback) return;
     setSelectedOption(optIdx);
     setShowFeedback(true);
+    setAiExplanation(null);
     setUserAnswers((prev) => ({
       ...prev,
       [currentQIndex]: optIdx
     }));
   };
 
+  const askGemini = async () => {
+    if (selectedOption === null) return;
+    setIsAiLoading(true);
+    try {
+      const res = await fetch('http://localhost:8000/api/ai/explain', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          question: currentQ.question,
+          user_answer: currentQ.options[selectedOption],
+          correct_answer: currentQ.options[currentQ.correctIndex],
+          grade: currentUser?.grade || "Class 5th",
+          subject: subjectTitle || "Science"
+        })
+      });
+      const data = await res.json();
+      setAiExplanation(data);
+    } catch (err) {
+      setAiExplanation({
+        explanation: `${currentQ.options[currentQ.correctIndex]} is correct because it directly matches the fundamental rule for this topic.`,
+        fun_fact: "Tip: Connect backend on port 8000 for live Gemini AI responses!"
+      });
+    } finally {
+      setIsAiLoading(false);
+    }
+  };
+
   const handleNext = () => {
     setSelectedOption(null);
     setShowFeedback(false);
+    setAiExplanation(null);
     if (currentQIndex + 1 < questions.length) {
       setCurrentQIndex(currentQIndex + 1);
     } else {
       setIsCompleted(true);
+      // Auto-save quiz attempt to FastAPI and SQLite Database
+      let finalScore = 0;
+      questions.forEach((q, idx) => {
+        if (userAnswers[idx] === q.correctIndex) {
+          finalScore += 1;
+        }
+      });
+      const finalAccuracy = Math.round((finalScore / questions.length) * 100);
+      
+      fetch('http://localhost:8000/api/quiz/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user_id: currentUser?.id || 1,
+          user_name: currentUser?.name || "Student",
+          grade: currentUser?.grade || "Class 5th",
+          subject: subjectTitle || "General",
+          chapter: chapter.title,
+          score: finalScore,
+          total: questions.length,
+          accuracy: finalAccuracy
+        })
+      }).catch(() => {});
+      
+      if (addXP) {
+        addXP(finalScore * 20);
+      }
     }
   };
 
@@ -464,6 +525,7 @@ export default function InteractiveLessonModal({ chapter, subjectTitle, onClose 
       setCurrentQIndex(prevIdx);
       setSelectedOption(userAnswers[prevIdx] ?? null);
       setShowFeedback(userAnswers[prevIdx] !== undefined);
+      setAiExplanation(null);
     }
   };
 
@@ -472,6 +534,7 @@ export default function InteractiveLessonModal({ chapter, subjectTitle, onClose 
     setSelectedOption(null);
     setShowFeedback(false);
     setUserAnswers({});
+    setAiExplanation(null);
     setIsCompleted(false);
   };
 
@@ -638,23 +701,58 @@ export default function InteractiveLessonModal({ chapter, subjectTitle, onClose 
 
             {/* Solution & Explanation Box */}
             {showFeedback && (
-              <div className={`p-5 rounded-2xl text-xs sm:text-sm font-medium border animate-in fade-in duration-200 ${
-                selectedOption === currentQ.correctIndex
-                  ? 'bg-emerald-50 text-emerald-900 border-emerald-200'
-                  : 'bg-amber-50 text-amber-900 border-amber-200'
-              }`}>
-                <div className="flex items-center gap-2 font-bold mb-1.5">
-                  {selectedOption === currentQ.correctIndex ? (
-                    <span className="text-emerald-700 font-extrabold flex items-center gap-1.5 text-sm">
-                      <CheckCircle2 className="w-4 h-4" /> Correct Answer!
-                    </span>
-                  ) : (
-                    <span className="text-amber-700 font-extrabold flex items-center gap-1.5 text-sm">
-                      <HelpCircle className="w-4 h-4" /> Solution & Explanation:
-                    </span>
-                  )}
+              <div className="space-y-3">
+                <div className={`p-5 rounded-2xl text-xs sm:text-sm font-medium border animate-in fade-in duration-200 ${
+                  selectedOption === currentQ.correctIndex
+                    ? 'bg-emerald-50 text-emerald-900 border-emerald-200'
+                    : 'bg-amber-50 text-amber-900 border-amber-200'
+                }`}>
+                  <div className="flex items-center gap-2 font-bold mb-1.5">
+                    {selectedOption === currentQ.correctIndex ? (
+                      <span className="text-emerald-700 font-extrabold flex items-center gap-1.5 text-sm">
+                        <CheckCircle2 className="w-4 h-4" /> Correct Answer!
+                      </span>
+                    ) : (
+                      <span className="text-amber-700 font-extrabold flex items-center gap-1.5 text-sm">
+                        <HelpCircle className="w-4 h-4" /> Solution & Explanation:
+                      </span>
+                    )}
+                  </div>
+                  <p className="leading-relaxed font-medium">{currentQ.explanation}</p>
                 </div>
-                <p className="leading-relaxed font-medium">{currentQ.explanation}</p>
+
+                {/* Gemini AI Smart Doubt Solver */}
+                {!aiExplanation ? (
+                  <button
+                    onClick={askGemini}
+                    disabled={isAiLoading}
+                    className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-700 text-white text-xs sm:text-sm font-bold shadow-md shadow-indigo-600/20 transition-all flex items-center justify-center gap-2 active:scale-98"
+                  >
+                    <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
+                    <span>{isAiLoading ? "Gemini AI Tutor is thinking... 🧠" : "✨ Ask Gemini AI: Explain Simply to Me"}</span>
+                  </button>
+                ) : (
+                  <div className="p-5 rounded-2xl bg-gradient-to-br from-indigo-50/90 via-purple-50/40 to-white border-2 border-indigo-200 text-slate-800 text-xs sm:text-sm shadow-sm animate-in fade-in duration-300">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2 text-indigo-700 font-extrabold">
+                        <Bot className="w-4 h-4 text-indigo-600" />
+                        <span>Gemini AI Tutor Explains:</span>
+                      </div>
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700 border border-indigo-200">
+                        AI Powered
+                      </span>
+                    </div>
+                    <p className="leading-relaxed font-medium text-slate-800 mb-2">
+                      {aiExplanation.explanation}
+                    </p>
+                    {aiExplanation.fun_fact && (
+                      <div className="pt-2 border-t border-indigo-100/80 text-[11px] text-indigo-900 font-semibold flex items-center gap-1.5">
+                        <span>💡</span>
+                        <span>{aiExplanation.fun_fact}</span>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             )}
           </div>

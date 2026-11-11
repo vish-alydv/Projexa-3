@@ -5,11 +5,13 @@ import CoursesPage from './components/courses/CoursesPage';
 import DailyLifeQuizzesPage from './components/quizzes/DailyLifeQuizzesPage';
 import ProgressPage from './components/progress/ProgressPage';
 import EditStudentModal from './components/modals/EditStudentModal';
+import AuthModal from './components/modals/AuthModal';
+import { AuthProvider, useAuth } from './context/AuthContext';
 
-export default function App() {
-  const [activePage, setActivePage] = useState('courses'); // 'home' | 'courses' | 'daily-life' | 'progress'
-  const [searchQuery, setSearchQuery] = useState('');
+function AppContent() {
+  const [activePage, setActivePage] = useState('courses'); // 'courses' | 'daily-life' | 'progress'
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const { isAuthModalOpen, setIsAuthModalOpen } = useAuth();
 
   // Sync with browser location hash
   useEffect(() => {
@@ -50,16 +52,13 @@ export default function App() {
         {/* View Component Router */}
         <main className="flex-1 overflow-y-auto">
           {activePage === 'daily-life' ? (
-            /* Daily Life Quizzes Page (Matching Image 1) */
             <DailyLifeQuizzesPage />
           ) : activePage === 'progress' ? (
-            /* Progress & Telemetry Page */
             <ProgressPage
               onBackToHome={() => handleNavigate('courses')}
               onNavigateCourses={() => handleNavigate('courses')}
             />
           ) : (
-            /* Class 5 Courses Page (Matching Image 2) */
             <CoursesPage
               onNavigateQuizzes={() => handleNavigate('daily-life')}
               onNavigateProgress={() => handleNavigate('progress')}
@@ -67,6 +66,12 @@ export default function App() {
           )}
         </main>
       </div>
+
+      {/* Auth Modal (Login / Register with Class Selection) */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+      />
 
       {/* Edit Student Profile Modal */}
       {isEditProfileOpen && (
@@ -76,5 +81,13 @@ export default function App() {
         />
       )}
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   TrendingUp, 
   CheckCircle2, 
@@ -13,7 +13,8 @@ import {
   BookOpenCheck, 
   Globe, 
   PlayCircle,
-  Target
+  Target,
+  Database
 } from 'lucide-react';
 import { CLASS_5_SUBJECTS } from '../../data/class5Data';
 import { USER_PROGRESS_MOCK } from '../../data/coursesData';
@@ -21,6 +22,22 @@ import StudentProfileCard from './StudentProfileCard';
 
 export default function ProgressPage({ onNavigateCourses }) {
   const data = USER_PROGRESS_MOCK;
+  const [liveStats, setLiveStats] = useState(null);
+  const [recentAttempts, setRecentAttempts] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8000/api/quiz/stats')
+      .then(res => res.json())
+      .then(d => setLiveStats(d))
+      .catch(() => {});
+
+    fetch('http://localhost:8000/api/quiz/attempts?limit=6')
+      .then(res => res.json())
+      .then(d => {
+        if (Array.isArray(d)) setRecentAttempts(d);
+      })
+      .catch(() => {});
+  }, []);
 
   const iconMap = {
     Calculator: Calculator,
@@ -53,35 +70,35 @@ export default function ProgressPage({ onNavigateCourses }) {
 
       {/* 4 Core Top Stat Metrics */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Metric 1 */}
+        {/* Metric 1: Accuracy */}
         <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-sm">
           <div className="flex items-center justify-between text-xs font-semibold text-slate-500 mb-2">
-            <span>Weekly Progress</span>
+            <span>Average Accuracy</span>
             <span className="p-1 rounded-lg bg-indigo-50 text-indigo-600">
               <TrendingUp className="w-4 h-4" />
             </span>
           </div>
           <div className="text-3xl font-black text-slate-900 tracking-tight">
-            82%
+            {liveStats?.total_quizzes > 0 ? `${liveStats.average_accuracy}%` : "82%"}
           </div>
           <div className="mt-2 text-xs font-semibold text-indigo-600">
-            +14% ahead of schedule
+            {liveStats?.total_quizzes > 0 ? "Synced with SQLite DB ✓" : "+14% ahead of schedule"}
           </div>
         </div>
 
-        {/* Metric 2 */}
+        {/* Metric 2: Quizzes Solved */}
         <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-sm">
           <div className="flex items-center justify-between text-xs font-semibold text-slate-500 mb-2">
-            <span>Lessons Completed</span>
+            <span>Quizzes Completed</span>
             <span className="p-1 rounded-lg bg-emerald-50 text-emerald-600">
               <CheckCircle2 className="w-4 h-4" />
             </span>
           </div>
           <div className="text-3xl font-black text-slate-900 tracking-tight">
-            12
+            {liveStats?.total_quizzes > 0 ? liveStats.total_quizzes : 12}
           </div>
           <div className="mt-2 text-xs text-slate-500 font-medium">
-            Target: 15 / week
+            {liveStats?.total_quizzes > 0 ? `${liveStats.total_questions_solved} questions solved` : "Target: 15 / week"}
           </div>
         </div>
 
@@ -299,6 +316,54 @@ export default function ProgressPage({ onNavigateCourses }) {
           })}
         </div>
       </div>
+
+      {/* Recent Quiz Attempts From SQLite Database */}
+      {recentAttempts.length > 0 && (
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <Database className="w-5 h-5 text-indigo-600" />
+              <h2 className="text-base sm:text-lg font-bold text-slate-900">
+                Recent Quizzes Saved in Database
+              </h2>
+            </div>
+            <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+              SQLite Synced
+            </span>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs">
+              <thead>
+                <tr className="border-b border-slate-100 text-slate-400 uppercase font-semibold">
+                  <th className="pb-3 font-semibold">Chapter</th>
+                  <th className="pb-3 font-semibold">Subject</th>
+                  <th className="pb-3 font-semibold">Grade</th>
+                  <th className="pb-3 font-semibold text-center">Score</th>
+                  <th className="pb-3 font-semibold text-right">Accuracy</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 font-medium">
+                {recentAttempts.map((att) => (
+                  <tr key={att.id} className="hover:bg-slate-50 transition-colors">
+                    <td className="py-3 font-bold text-slate-800">{att.chapter}</td>
+                    <td className="py-3 text-slate-600">{att.subject}</td>
+                    <td className="py-3 text-indigo-600 font-semibold">{att.grade}</td>
+                    <td className="py-3 text-center font-bold text-slate-900">{att.score} / {att.total}</td>
+                    <td className="py-3 text-right">
+                      <span className={`px-2 py-0.5 rounded-full font-bold ${
+                        att.accuracy >= 80 ? 'bg-emerald-50 text-emerald-700' : 'bg-indigo-50 text-indigo-700'
+                      }`}>
+                        {att.accuracy}%
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
 
       {/* Student Badges & Achievements */}
       <div className="mb-4">

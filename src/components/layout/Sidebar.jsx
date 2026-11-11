@@ -4,15 +4,24 @@ import {
   BookOpen, 
   Sparkles, 
   BarChart2, 
-  Zap
+  Zap,
+  LogIn
 } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 
 export default function Sidebar({ activePage, onNavigate, onOpenProfileModal }) {
+  const { currentUser, setIsAuthModalOpen } = useAuth();
+
   const navItems = [
     { id: 'courses', label: 'Courses', icon: BookOpen },
     { id: 'daily-life', label: 'Interactive Quizzes', icon: Sparkles },
     { id: 'progress', label: 'Progress & Stats', icon: BarChart2 }
   ];
+
+  const getInitials = (name) => {
+    if (!name) return "ST";
+    return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+  };
 
   return (
     <aside className="w-64 bg-white border-r border-slate-200/80 flex flex-col justify-between min-h-screen p-5 shrink-0 select-none shadow-sm z-20">
@@ -32,28 +41,27 @@ export default function Sidebar({ activePage, onNavigate, onOpenProfileModal }) 
 
         {/* Student Profile Card */}
         <div 
-          onClick={onOpenProfileModal}
-          className="mt-5 p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100/80 transition-colors"
+          onClick={() => setIsAuthModalOpen(true)}
+          className="mt-5 p-3 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between gap-3 cursor-pointer hover:bg-indigo-50/50 hover:border-indigo-200 transition-all shadow-xs"
+          title="Click to Switch User / Sign In"
         >
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="w-9 h-9 rounded-full bg-indigo-100 overflow-hidden shrink-0 flex items-center justify-center font-bold text-xs text-indigo-700">
-              <img 
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120" 
-                alt="Alex Rivera"
-                className="w-full h-full object-cover"
-                onError={(e) => { e.target.style.display = 'none'; }}
-              />
-              AR
+            <div className="w-9 h-9 rounded-xl bg-indigo-100 text-indigo-700 overflow-hidden shrink-0 flex items-center justify-center font-extrabold text-xs">
+              {getInitials(currentUser?.name)}
             </div>
             <div className="flex flex-col min-w-0">
-              <span className="text-xs font-bold text-slate-900 truncate">Alex Rivera</span>
-              <span className="text-[11px] text-slate-500">Class 5</span>
+              <span className="text-xs font-bold text-slate-900 truncate">
+                {currentUser?.name || "Student"}
+              </span>
+              <span className="text-[11px] font-semibold text-indigo-600">
+                {currentUser?.grade || "Class 5th"}
+              </span>
             </div>
           </div>
 
           <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-indigo-50 text-indigo-700 text-[11px] font-bold border border-indigo-100 shrink-0">
             <Zap className="w-3 h-3 text-indigo-600 fill-indigo-600" />
-            <span>480 XP</span>
+            <span>{currentUser?.xp || 480} XP</span>
           </div>
         </div>
 
@@ -82,8 +90,15 @@ export default function Sidebar({ activePage, onNavigate, onOpenProfileModal }) 
       </div>
 
       {/* Footer */}
-      <div className="pt-3 border-t border-slate-100 text-[11px] text-slate-400 font-medium text-center">
-        © 2024 LearnEasy
+      <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-medium">
+        <span>© 2024 LearnEasy</span>
+        <button 
+          onClick={() => setIsAuthModalOpen(true)}
+          className="text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-1"
+        >
+          <LogIn className="w-3 h-3" />
+          <span>Switch</span>
+        </button>
       </div>
     </aside>
   );
