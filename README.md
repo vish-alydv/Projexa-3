@@ -1,47 +1,71 @@
-# Learn Easy — Modern EdTech SaaS Platform
+# Learn Easy — Multi-Grade EdTech Learning Platform
 
-A modern, professional EdTech web platform inspired by the Adobe Creative Cloud glassmorphism UI aesthetic, featuring clean spacing, translucent panels, subtle borders, and a fresh educational Teal design system.
+A modern full-stack EdTech web platform featuring full-screen interactive quizzes, student grade selection (Class 1st to 10th), a SQLite database, and an AI Tutor powered by Google Gemini.
 
-## 🚀 Features
+---
 
-- **Class 5th Core Subjects**: Dedicated interactive course modules for **Mathematics**, **Science & EVS**, **English Language**, and **Social Studies**.
-- **Interactive Chapter Inspector**: Modal view with comprehensive syllabus breakdowns, estimated duration, chapter learning goals, and printable worksheets.
-- **Adobe CC Glassmorphism Design**: Frosted glass cards (`backdrop-blur-xl`, subtle borders), soft ambient lighting, and elegant whitespace.
-- **Personalized Learner Dashboard**: Real-time study telemetry (Weekly Progress 82%, Lessons Completed 12, Learning Time 4 hours, Courses in Progress 3, weekly activity intensity chart).
-- **Responsive Architecture**: Fully responsive across mobile, tablet, and widescreen displays.
+## 📁 Project Architecture
 
-## 🛠️ Tech Stack
-
-- **React 18**
-- **Vite 6**
-- **Tailwind CSS**
-- **Lucide React Icons**
-- **Plus Jakarta Sans Typography**
-
-## 📦 Getting Started
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/vish-alydv/Projexa-3.git
-cd Projexa-3
+```
+Learn-Easy/
+├── frontend/                  # React 18 + Vite + Tailwind CSS
+│   ├── src/                   # Components, Pages, Context
+│   ├── package.json           # Frontend dependencies
+│   ├── vite.config.js
+│   └── tailwind.config.js
+│
+├── backend/                   # FastAPI + SQLite + Gemini AI
+│   ├── main.py                # REST API routes (Auth, Quizzes, AI)
+│   ├── database.py            # SQLite connection (learn_easy.db)
+│   ├── models.py              # SQLAlchemy models (User, QuizAttempt)
+│   ├── schemas.py             # Pydantic validation schemas
+│   ├── ai_service.py          # Google Gemini AI Tutor service
+│   ├── requirements.txt       # Python dependencies
+│   └── .env                   # GEMINI_API_KEY configuration
+│
+└── package.json               # Root helper scripts
 ```
 
-### 2. Install dependencies
-```bash
-npm install
-```
+---
 
-### 3. Run development server
+## 🚀 Quick Start Guide
+
+### 1. Run Frontend (React + Vite)
 ```bash
+# Option A: From root directory
+npm run dev
+
+# Option B: From frontend directory
+cd frontend
 npm run dev
 ```
+Open **[http://localhost:3000](http://localhost:3000)** in your browser.
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+---
 
-### 4. Build for production
+### 2. Run Backend (FastAPI + Python)
 ```bash
-npm run build
+# Option A: From root directory
+npm run backend
+
+# Option B: From backend directory
+cd backend
+python -m uvicorn main:app --reload --port 8000
 ```
+- API Health Check: **[http://localhost:8000](http://localhost:8000)**
+- Interactive Swagger Docs: **[http://localhost:8000/docs](http://localhost:8000/docs)**
+
+---
+
+## 🔑 Configure Gemini AI API Key
+
+Add your Gemini API key in `backend/.env`:
+```env
+GEMINI_API_KEY="your_api_key_here"
+```
+*(Get a free key from [Google AI Studio](https://aistudio.google.com/)).*
+
+---
 
 ## 📄 License
 MIT License
