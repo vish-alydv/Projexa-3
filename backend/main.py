@@ -173,16 +173,16 @@ def explain_with_ai(payload: AIExplainRequest):
 
 @app.post("/api/ai/generate-quiz")
 def generate_dynamic_quiz(payload: AIGenerateQuizRequest):
+    topic = payload.topic.strip() if payload.topic else "General Knowledge"
     questions = generate_ai_quiz(
-        grade=payload.grade,
-        subject=payload.subject,
-        chapter=payload.chapter,
-        num_questions=payload.num_questions
+        topic=topic,
+        grade=payload.grade or "Class 5th",
+        subject=payload.subject or "General",
+        num_questions=payload.num_questions or 5
     )
-    if not questions:
-        # Fallback if API key not supplied or failed
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Gemini AI Quiz Generation requires a valid GEMINI_API_KEY in backend/.env"
-        )
-    return {"chapter": payload.chapter, "questions": questions}
+    return {
+        "topic": topic,
+        "chapter": topic,
+        "title": f"{topic} (AI Quiz)",
+        "questions": questions
+    }

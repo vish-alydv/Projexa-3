@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
-export default function InteractiveLessonModal({ chapter, subjectTitle, onClose }) {
+export default function InteractiveLessonModal({ chapter, subjectTitle, customQuestions, onClose }) {
   const { currentUser, addXP } = useAuth();
   const [currentQIndex, setCurrentQIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -440,7 +440,9 @@ export default function InteractiveLessonModal({ chapter, subjectTitle, onClose 
     }));
   };
 
-  const questions = generateQuestionsForChapter(chapter, subjectTitle);
+  const questions = (customQuestions && customQuestions.length > 0) 
+    ? customQuestions 
+    : generateQuestionsForChapter(chapter, subjectTitle);
   const currentQ = questions[currentQIndex] || questions[0];
 
   const handleSelectOption = (optIdx) => {

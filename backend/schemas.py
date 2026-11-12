@@ -61,7 +61,7 @@ class AIExplainResponse(BaseModel):
     fun_fact: Optional[str] = None
 
 class AIGenerateQuizRequest(BaseModel):
-    grade: str = "Class 5th"
-    subject: str
-    chapter: str
-    num_questions: int = 5
+    topic: str
+    grade: Optional[str] = "Class 5th"
+    subject: Optional[str] = "General"
+    num_questions: Optional[int] = 5
