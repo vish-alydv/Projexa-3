@@ -88,7 +88,7 @@ export default function Sidebar({ activePage, onNavigate, onOpenProfileModal }) 
 
       {/* Footer */}
       <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-medium">
-        <span>© 2024 LearnEasy</span>
+        <span>© {new Date().getFullYear()} LearnEasy</span>
         <button 
           onClick={() => setIsAuthModalOpen(true)}
           className="text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-1"

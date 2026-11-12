@@ -11,7 +11,8 @@ import {
   Microscope,
   BookOpenCheck,
   Globe2,
-  FileText
+  FileText,
+  Printer
 } from 'lucide-react';
 
 import { CLASS_5_SUBJECTS } from '../../data/class5Data';
@@ -20,6 +21,7 @@ import InteractiveLessonModal from './InteractiveLessonModal';
 export default function SubjectChapterModal({ subjectId, subject: subjectProp, onClose, onStartLesson }) {
   const [activeChapterIndex, setActiveChapterIndex] = useState(0);
   const [activeLessonModal, setActiveLessonModal] = useState(null);
+  const [isWorksheetOpen, setIsWorksheetOpen] = useState(false);
 
   if (!subjectId && !subjectProp) return null;
 
@@ -217,9 +219,7 @@ export default function SubjectChapterModal({ subjectId, subject: subjectProp, o
                 </button>
 
                 <button
-                  onClick={() => {
-                    alert(`Downloading practice worksheet for: ${currentChapter.title}`);
-                  }}
+                  onClick={() => setIsWorksheetOpen(true)}
                   className="w-full sm:w-auto flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:text-slate-900 text-xs font-semibold hover:bg-slate-200 transition-colors"
                 >
                   <FileText className="w-4 h-4 text-indigo-600" />
@@ -230,6 +230,86 @@ export default function SubjectChapterModal({ subjectId, subject: subjectProp, o
           </div>
         </div>
       </div>
+
+      {/* Printable Worksheet Modal */}
+      {isWorksheetOpen && (
+        <div className="fixed inset-0 z-[95] bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div 
+            className="relative w-full max-w-2xl bg-white rounded-3xl border border-slate-200 shadow-2xl p-6 sm:p-8 max-h-[90vh] flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+              <div className="flex items-center gap-2">
+                <div className="w-9 h-9 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center">
+                  <FileText className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base font-extrabold text-slate-900">
+                    Printable Homework Worksheet
+                  </h3>
+                  <p className="text-xs text-slate-500 font-medium">
+                    {subject.title} • {currentChapter.title}
+                  </p>
+                </div>
+              </div>
+              <button 
+                onClick={() => setIsWorksheetOpen(false)}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-800 hover:bg-slate-100"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Printable Content Body */}
+            <div className="flex-1 overflow-y-auto py-5 space-y-5">
+              <div className="p-3.5 rounded-xl border border-indigo-100 bg-indigo-50/50 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-700 font-medium">
+                <span>Student: _______________________</span>
+                <span>Date: ____________</span>
+                <span>Score: _____ / 10</span>
+              </div>
+
+              <div>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 mb-3">
+                  Part A: Concept Review & Key Questions
+                </h4>
+                <div className="space-y-4 text-xs sm:text-sm text-slate-800">
+                  {currentChapter.topics?.map((topic, i) => (
+                    <div key={i} className="space-y-1.5">
+                      <p className="font-semibold text-slate-900">
+                        Q{i + 1}. Explain the main concept of <strong>{topic}</strong> with a real-life example:
+                      </p>
+                      <div className="w-full h-10 rounded-lg border border-dashed border-slate-300 bg-slate-50" />
+                    </div>
+                  ))}
+                  <div className="space-y-1.5">
+                    <p className="font-semibold text-slate-900">
+                      Q{(currentChapter.topics?.length || 0) + 1}. Write two key facts or formulas you learned in this chapter:
+                    </p>
+                    <div className="w-full h-10 rounded-lg border border-dashed border-slate-300 bg-slate-50" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+              <button
+                onClick={() => setIsWorksheetOpen(false)}
+                className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100"
+              >
+                Close
+              </button>
+              <button
+                onClick={() => window.print()}
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-md shadow-indigo-600/20 active:scale-95 transition-all"
+              >
+                <Printer className="w-4 h-4" />
+                <span>Print / Save PDF</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Interactive Lesson Reader Modal */}
       {activeLessonModal && (
