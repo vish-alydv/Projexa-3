@@ -4,8 +4,8 @@ import {
   BookOpen, 
   Sparkles, 
   BarChart2, 
-  Zap,
-  LogIn
+  LogIn,
+  ChevronRight
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
@@ -59,10 +59,7 @@ export default function Sidebar({ activePage, onNavigate, onOpenProfileModal }) 
             </div>
           </div>
 
-          <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-indigo-50 text-indigo-700 text-[11px] font-bold border border-indigo-100 shrink-0">
-            <Zap className="w-3 h-3 text-indigo-600 fill-indigo-600" />
-            <span>{currentUser?.xp || 480} XP</span>
-          </div>
+          <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
         </div>
 
         {/* Navigation Menu */}

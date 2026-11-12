@@ -1,5 +1,5 @@
 import React from 'react';
-import { Award, GraduationCap, UserCircle2, ChevronDown } from 'lucide-react';
+import { GraduationCap, UserCircle2, ChevronDown } from 'lucide-react';
 import { useAuth, AVAILABLE_GRADES } from '../../context/AuthContext';
 
 export default function TopBar() {
@@ -34,13 +34,8 @@ export default function TopBar() {
         </div>
       </div>
 
-      {/* Right: XP Badge & Account Button */}
+      {/* Right: Account Button */}
       <div className="flex items-center gap-2.5">
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-50 text-indigo-700 font-bold text-xs border border-indigo-100 shadow-2xs">
-          <Award className="w-3.5 h-3.5 text-indigo-600" />
-          <span>{currentUser?.xp || 480} XP</span>
-        </div>
-
         <button
           onClick={() => setIsAuthModalOpen(true)}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 hover:border-indigo-200 bg-white hover:bg-indigo-50/50 text-xs font-bold text-slate-700 hover:text-indigo-700 transition-all shadow-2xs"

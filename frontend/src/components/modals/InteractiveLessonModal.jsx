@@ -17,7 +17,7 @@ import {
 import { useAuth } from '../../context/AuthContext';
 
 export default function InteractiveLessonModal({ chapter, subjectTitle, customQuestions, onClose }) {
-  const { currentUser, addXP } = useAuth();
+  const { currentUser } = useAuth();
   const [currentQIndex, setCurrentQIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [showFeedback, setShowFeedback] = useState(false);
@@ -514,10 +514,6 @@ export default function InteractiveLessonModal({ chapter, subjectTitle, customQu
           accuracy: finalAccuracy
         })
       }).catch(() => {});
-      
-      if (addXP) {
-        addXP(finalScore * 20);
-      }
     }
   };
 

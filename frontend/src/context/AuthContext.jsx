@@ -26,16 +26,14 @@ export function AuthProvider({ children }) {
         id: 1,
         name: "Alex Rivera",
         email: "alex@learneasy.com",
-        grade: "Class 5th",
-        xp: 480
+        grade: "Class 5th"
       };
     } catch {
       return {
         id: 1,
         name: "Alex Rivera",
         email: "alex@learneasy.com",
-        grade: "Class 5th",
-        xp: 480
+        grade: "Class 5th"
       };
     }
   });
@@ -62,7 +60,7 @@ export function AuthProvider({ children }) {
       if (!res.ok) {
         throw new Error(data.detail || "Registration failed");
       }
-      const userObj = { ...data, xp: 100 };
+      const userObj = { ...data };
       setCurrentUser(userObj);
       return { success: true, user: userObj };
     } catch (err) {
@@ -82,7 +80,7 @@ export function AuthProvider({ children }) {
       if (!res.ok) {
         throw new Error(data.detail || "Login failed");
       }
-      const userObj = { ...data, xp: 480 };
+      const userObj = { ...data };
       setCurrentUser(userObj);
       return { success: true, user: userObj };
     } catch (err) {
@@ -102,13 +100,6 @@ export function AuthProvider({ children }) {
     }
   };
 
-  // Award XP for completing quizzes
-  const addXP = (amount) => {
-    if (currentUser) {
-      setCurrentUser(prev => ({ ...prev, xp: (prev.xp || 0) + amount }));
-    }
-  };
-
   return (
     <AuthContext.Provider value={{
       currentUser,
@@ -117,8 +108,7 @@ export function AuthProvider({ children }) {
       register,
       login,
       logout,
-      setGrade,
-      addXP
+      setGrade
     }}>
       {children}
     </AuthContext.Provider>
