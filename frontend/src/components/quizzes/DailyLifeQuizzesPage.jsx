@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import { 
   Sparkles, 
-  Send, 
   Clock, 
   ArrowRight, 
   Bot, 
-  Compass, 
-  HelpCircle,
-  Lightbulb,
-  CheckCircle2,
+  CheckCircle2, 
   X
 } from 'lucide-react';
 import supermarketCartImg from '../../assets/supermarket_cart.jpg';
@@ -23,18 +19,6 @@ export default function DailyLifeQuizzesPage() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [generateError, setGenerateError] = useState('');
   const [activeQuizModal, setActiveQuizModal] = useState(null);
-
-  // Suggestion chips for rapid AI quiz creation
-  const promptSuggestions = [
-    { label: "🪐 Solar System & Planets", topic: "Solar System, Planets, and the Moon" },
-    { label: "🌱 Photosynthesis & Plants", topic: "Photosynthesis, Leaves and Plant Nutrition" },
-    { label: "🍕 Fractions with Pizza & Money", topic: "Visual Fractions, Halves, Fourths & Money" },
-    { label: "⚡ Electricity & Simple Circuits", topic: "Electric Current, Batteries and Conductors" },
-    { label: "🦁 Wildlife & Food Chains", topic: "Animals, Habitats and Food Chains" },
-    { label: "🇮🇳 Indian History & Culture", topic: "Indian Freedom Movement and National Symbols" },
-    { label: "📐 Geometry, Angles & Shapes", topic: "Angles, Polygons, and Shapes in Real Life" },
-    { label: "✍️ English Tenses & Grammar", topic: "Past, Present and Continuous Verb Tenses" }
-  ];
 
   // Curated static quizzes
   const curatedQuizzes = [
@@ -277,7 +261,7 @@ export default function DailyLifeQuizzesPage() {
               e.preventDefault();
               handleGenerateAIQuiz(topicInput);
             }} 
-            className="flex flex-col sm:flex-row items-center gap-2.5 bg-white/10 backdrop-blur-xl border border-white/20 p-2 sm:p-2.5 rounded-2xl shadow-inner mb-5"
+            className="flex flex-col sm:flex-row items-center gap-2.5 bg-white/10 backdrop-blur-xl border border-white/20 p-2 sm:p-2.5 rounded-2xl shadow-inner mb-0"
           >
             <div className="relative flex-1 w-full flex items-center">
               <Bot className="w-5 h-5 text-indigo-300 absolute left-3.5" />
@@ -324,34 +308,10 @@ export default function DailyLifeQuizzesPage() {
 
           {/* Error Message */}
           {generateError && (
-            <div className="mb-4 p-3 rounded-xl bg-rose-500/20 border border-rose-400/40 text-rose-200 text-xs font-semibold">
+            <div className="mt-4 p-3 rounded-xl bg-rose-500/20 border border-rose-400/40 text-rose-200 text-xs font-semibold">
               ⚠️ {generateError}
             </div>
           )}
-
-          {/* Suggestion Chips */}
-          <div>
-            <div className="flex items-center gap-1.5 text-xs font-bold text-indigo-200 uppercase tracking-wider mb-2.5">
-              <Lightbulb className="w-3.5 h-3.5 text-amber-300" />
-              <span>Or click a popular topic to generate instantly:</span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {promptSuggestions.map((item, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  disabled={isGenerating}
-                  onClick={() => {
-                    setTopicInput(item.topic);
-                    handleGenerateAIQuiz(item.topic);
-                  }}
-                  className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-xs font-semibold text-white transition-all active:scale-95 text-left flex items-center gap-1.5 hover:border-white/40"
-                >
-                  <span>{item.label}</span>
-                </button>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
 
