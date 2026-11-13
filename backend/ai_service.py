@@ -1,6 +1,11 @@
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
+# Automatically load from backend/.env or root .env
+_backend_env = Path(__file__).resolve().parent / ".env"
+if _backend_env.exists():
+    load_dotenv(dotenv_path=_backend_env)
 load_dotenv()
 
 def get_ai_explanation(question: str, user_answer: str, correct_answer: str, grade: str = "Class 5th", subject: str = "Science"):
@@ -26,11 +31,17 @@ Task:
 2. Clearly explain why "{correct_answer}" is correct using a simple, relatable real-world example or analogy (e.g. helmet, building blocks, shopping cart).
 3. Keep it under 3-4 sentences. Tone should be positive, encouraging, and easy to grasp for a young student.
 """
-        response = client.models.generate_content(
-            model='gemini-2.5-flash',
-            contents=prompt,
-        )
-        text = response.text.strip() if response.text else ""
+        for model_name in ['gemini-3.1-flash-lite', 'gemini-3.5-flash-lite', 'gemini-3.5-flash']:
+            try:
+                response = client.models.generate_content(
+                    model=model_name,
+                    contents=prompt,
+                )
+                if response and response.text:
+                    break
+            except Exception:
+                continue
+        text = response.text.strip() if response and response.text else ""
         return {
             "explanation": text,
             "fun_fact": "You're doing fantastic! Asking 'why' is how true scientists and mathematicians learn! 🌟"
@@ -68,11 +79,18 @@ Format your output STRICTLY as a valid JSON array of objects with these keys:
 
 Return ONLY the raw JSON array. Do not wrap in markdown or backticks.
 """
-            response = client.models.generate_content(
-                model='gemini-2.5-flash',
-                contents=prompt,
-            )
-            content = response.text.strip() if response.text else ""
+            content = ""
+            for model_name in ['gemini-3.1-flash-lite', 'gemini-3.5-flash-lite', 'gemini-3.5-flash']:
+                try:
+                    response = client.models.generate_content(
+                        model=model_name,
+                        contents=prompt,
+                    )
+                    if response and response.text:
+                        content = response.text.strip()
+                        break
+                except Exception:
+                    continue
             if "```" in content:
                 lines = content.split("\n")
                 lines = [l for l in lines if not l.strip().startswith("```")]
