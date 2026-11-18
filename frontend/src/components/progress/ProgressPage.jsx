@@ -10,12 +10,13 @@ import {
 } from 'lucide-react';
 import { CLASS_5_SUBJECTS } from '../../data/class5Data';
 import StudentProfileCard from './StudentProfileCard';
+import { API_BASE } from '../../config';
 
 export default function ProgressPage({ onNavigateCourses }) {
   const [recentAttempts, setRecentAttempts] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/quiz/attempts?limit=8')
+    fetch(`${API_BASE}/quiz/attempts?limit=8`)
       .then(res => res.json())
       .then(d => {
         if (Array.isArray(d)) setRecentAttempts(d);

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { API_BASE } from '../config';
 
 const AuthContext = createContext();
 
@@ -9,8 +10,6 @@ export const AVAILABLE_GRADES = [
   "Class 4th",
   "Class 5th"
 ];
-
-const API_BASE = "http://localhost:8000/api";
 
 export function AuthProvider({ children }) {
   // Check localStorage for saved session

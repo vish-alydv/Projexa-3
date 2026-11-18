@@ -15,6 +15,7 @@ import {
   Bot
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { API_BASE } from '../../config';
 
 export default function InteractiveLessonModal({ chapter, subjectTitle, customQuestions, onClose }) {
   const { currentUser } = useAuth();
@@ -460,7 +461,7 @@ export default function InteractiveLessonModal({ chapter, subjectTitle, customQu
     if (selectedOption === null) return;
     setIsAiLoading(true);
     try {
-      const res = await fetch('http://localhost:8000/api/ai/explain', {
+      const res = await fetch(`${API_BASE}/ai/explain`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -500,7 +501,7 @@ export default function InteractiveLessonModal({ chapter, subjectTitle, customQu
       });
       const finalAccuracy = Math.round((finalScore / questions.length) * 100);
       
-      fetch('http://localhost:8000/api/quiz/submit', {
+      fetch(`${API_BASE}/quiz/submit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

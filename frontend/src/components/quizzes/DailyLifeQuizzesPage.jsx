@@ -12,6 +12,7 @@ import kitchenScienceImg from '../../assets/kitchen_science.jpg';
 import roadSafetyImg from '../../assets/road_safety.jpg';
 import InteractiveLessonModal from '../modals/InteractiveLessonModal';
 import { useAuth } from '../../context/AuthContext';
+import { API_BASE } from '../../config';
 
 export default function DailyLifeQuizzesPage() {
   const { currentUser } = useAuth();
@@ -196,7 +197,7 @@ export default function DailyLifeQuizzesPage() {
     setGenerateError('');
 
     try {
-      const res = await fetch('http://localhost:8000/api/ai/generate-quiz', {
+      const res = await fetch(`${API_BASE}/ai/generate-quiz`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
