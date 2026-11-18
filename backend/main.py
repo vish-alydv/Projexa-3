@@ -4,19 +4,34 @@ from sqlalchemy.orm import Session
 from typing import List, Optional
 import os
 
-from .database import engine, Base, get_db
-from .models import User, QuizAttempt
-from .schemas import (
-    UserRegister, 
-    UserLogin, 
-    UserResponse, 
-    QuizSubmitRequest, 
-    QuizAttemptResponse,
-    AIExplainRequest,
-    AIExplainResponse,
-    AIGenerateQuizRequest
-)
-from .ai_service import get_ai_explanation, generate_ai_quiz
+try:
+    from .database import engine, Base, get_db
+    from .models import User, QuizAttempt
+    from .schemas import (
+        UserRegister, 
+        UserLogin, 
+        UserResponse, 
+        QuizSubmitRequest, 
+        QuizAttemptResponse,
+        AIExplainRequest,
+        AIExplainResponse,
+        AIGenerateQuizRequest
+    )
+    from .ai_service import get_ai_explanation, generate_ai_quiz
+except (ImportError, ValueError):
+    from database import engine, Base, get_db
+    from models import User, QuizAttempt
+    from schemas import (
+        UserRegister, 
+        UserLogin, 
+        UserResponse, 
+        QuizSubmitRequest, 
+        QuizAttemptResponse,
+        AIExplainRequest,
+        AIExplainResponse,
+        AIGenerateQuizRequest
+    )
+    from ai_service import get_ai_explanation, generate_ai_quiz
 
 # Initialize database tables
 Base.metadata.create_all(bind=engine)
