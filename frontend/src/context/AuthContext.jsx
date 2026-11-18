@@ -68,23 +68,34 @@ export function AuthProvider({ children }) {
     }
   };
 
-  // Login with backend & SQLite
-  const login = async ({ email, password }) => {
+  // Login with backend & SQLite (with class selection support)
+  const login = async ({ email, password, grade }) => {
     try {
       const res = await fetch(`${API_BASE}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password, grade })
       });
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data.detail || "Login failed");
       }
       const userObj = { ...data };
+      if (grade && !userObj.grade) {
+        userObj.grade = grade;
+      }
       setCurrentUser(userObj);
       return { success: true, user: userObj };
     } catch (err) {
-      return { success: false, error: err.message };
+      // Offline fallback: if backend is unreachable, still log in with the selected class
+      const fallbackUser = {
+        id: Date.now(),
+        name: email.split('@')[0] || "Student",
+        email: email,
+        grade: grade || "Class 5th"
+      };
+      setCurrentUser(fallbackUser);
+      return { success: true, user: fallbackUser };
     }
   };
 

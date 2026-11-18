@@ -80,6 +80,13 @@ def login_user(credentials: UserLogin, db: Session = Depends(get_db)):
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password."
         )
+    
+    # If student chose or updated their class during login, persist it
+    if credentials.grade and credentials.grade.strip():
+        user.grade = credentials.grade.strip()
+        db.commit()
+        db.refresh(user)
+
     return user
 
 @app.get("/api/auth/users", response_model=List[UserResponse])
